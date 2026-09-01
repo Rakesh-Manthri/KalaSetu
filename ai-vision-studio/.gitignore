@@ -24,7 +24,7 @@ wheels/
 *.egg
 models/*
 !models/.gitkeep
-tests/fixtures/*.jpg
-tests/fixtures/*.png
+tests/fixtures/oversized*
+tests/fixtures/*.large
 .pytest_cache/
 stub_output/

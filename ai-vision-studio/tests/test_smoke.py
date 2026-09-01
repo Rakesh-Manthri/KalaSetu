@@ -19,8 +19,8 @@ def test_imports():
     }
 
 
-def test_enhance_phase1_stub_nonexistent_path():
-    """Verify enhance returns fake success response even without an image file in Phase 1."""
+def test_enhance_nonexistent_path_returns_error():
+    """Verify enhance returns error response with FILE_NOT_FOUND when image is missing."""
     from vision_studio import EnhanceOptions, EnhanceRequest, VisionStudio
 
     studio = VisionStudio()
@@ -36,10 +36,32 @@ def test_enhance_phase1_stub_nonexistent_path():
     )
     response = studio.enhance(request)
 
+    assert response.status == "error"
+    assert response.contract_version == "1.0"
+    assert response.processed_image_path is None
+    assert isinstance(response.metadata, dict)
+    assert len(response.errors) == 1
+    assert response.errors[0]["code"] == "FILE_NOT_FOUND"
+    assert response.errors[0]["stage"] == "validate"
+
+
+def test_enhance_valid_image_smoke(setup_test_fixtures):
+    """Verify enhance returns success and valid metadata when given a real image."""
+    from vision_studio import EnhanceOptions, EnhanceRequest, VisionStudio
+
+    valid_img = setup_test_fixtures / "valid_sample.jpg"
+    studio = VisionStudio()
+    request = EnhanceRequest(
+        image_path=str(valid_img),
+        options=EnhanceOptions(),
+    )
+    response = studio.enhance(request)
+
     assert response.status == "success"
     assert response.contract_version == "1.0"
-    assert response.processed_image_path is not None
-    assert isinstance(response.metadata, dict)
+    assert response.processed_image_path == "stub_output/product.jpg"
+    assert response.metadata.get("phase") == 2
+    assert "image_metadata" in response.metadata
     assert response.errors == []
 
 
