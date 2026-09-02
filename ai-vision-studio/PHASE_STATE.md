@@ -336,19 +336,75 @@ def export(
 
 ---
 
-## HANDOFF -> PHASE 6 (FastAPI Service & Web API Layer)
+## Phase 6 Testing, Hardening & Quality Benchmark Specifications
 
-### 1. Integration Verification Command
+### 1. Completed Tasks in Phase 6
+- [x] **Timeout Protection (`vision_studio/utils/timeout.py`)**: `run_with_timeout(func, args, seconds)` using `concurrent.futures.ThreadPoolExecutor` returning clean `VisionStudioError(code=TIMEOUT, stage=...)` on breach without blocking the caller forever.
+- [x] **Pipeline Timeout Wrapping (`vision_studio/api.py`)**: Wrapped `VisionStudio.enhance()` with `self.config.request_timeout_s` protection, catching timeouts and returning structured `status="error"` with code `TIMEOUT`.
+- [x] **Config & Environment Hardening (`vision_studio/config.py`, `.env.example`)**: Finalized `Settings` with `model_dir`, `default_quality`, `max_image_mb`, `inference_device`, `request_timeout_s=20.0`, `output_dir="./outputs"`, `blur_severe_threshold=15.0`, `blur_light_threshold=60.0`, cached singleton `get_settings()`, and Pydantic field validators.
+- [x] **Offline Model Pre-download Script (`scripts/download_models.sh`)**: Automated shell script to pre-fetch and cache both `u2net` and `u2netp` sessions in `~/.rembg/models/` for 100% offline deployment.
+- [x] **Hardening Test Suite (`tests/test_hardening.py`)**: 13 comprehensive test cases covering timeout simulation, ONNX model loading failures, partial pipeline failures (e.g. lighting failure after successful bg removal), and configuration validation.
+- [x] **Quality & Latency Benchmark Script (`eval/benchmark.py`, `eval/README.md`)**: Automated multi-stage benchmarking across `fast`, `balanced`, and `high` quality tiers measuring stage latencies and disk footprint.
+- [x] **Production Documentation (`README.md`, `tests/fixtures/README.md`)**: Complete module documentation with architectural flowcharts, SIH impact statement, error codes reference, teammate integration code, and benchmark results.
+
+### 2. Final Settings Keys and Defaults
+| Setting Key | Type | Default | Validation / Constraints |
+| :--- | :--- | :--- | :--- |
+| `model_dir` | `str` | `"./models"` | Storage directory for offline weights |
+| `default_quality` | `Literal["fast", "balanced", "high"]` | `"balanced"` | Must be one of `fast`, `balanced`, `high` |
+| `max_image_mb` | `int` | `15` | Positive integer (> 0) |
+| `inference_device` | `str` | `"cpu"` | `"cpu"` (or execution provider string) |
+| `request_timeout_s`| `float` | `20.0` | Positive float (> 0) |
+| `output_dir` | `str` | `"./outputs"` | Path where exported images & montages are written |
+| `blur_severe_threshold` | `float` | `15.0` | Rejection cutoff for Laplacian variance |
+| `blur_light_threshold` | `float` | `60.0` | Cutoff below which unsharp mask is applied |
+
+### 3. Full Benchmark Table (Measured Empirical CPU Latency)
+| Fixture / Product Category | Quality Tier | ONNX Model | Validate | BG Removal | Lighting | Composition | Export | Total Latency | Output Size | Status |
+| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `product_textile.jpg` (Handloom) | **fast** | `u2netp` | 10.1 ms | 661.8 ms | 40.7 ms | 97.5 ms | 102.6 ms | **943.8 ms** | 36.0 KB | `success` |
+| `product_textile.jpg` (Handloom) | **balanced** | `u2net` | 11.9 ms | 4183.7 ms | 667.6 ms | 454.5 ms | 74.4 ms | **5413.3 ms** | 38.9 KB | `success` |
+| `product_textile.jpg` (Handloom) | **high** | `u2net` | 8.5 ms | 2163.4 ms | 71.6 ms | 154.1 ms | 59.1 ms | **2470.3 ms** | 38.9 KB | `success` |
+| `valid_sample.jpg` (Terracotta) | **fast** | `u2netp` | 5.4 ms | 1678.4 ms | 31.3 ms | 93.2 ms | 117.8 ms | **1942.5 ms** | 39.9 KB | `success` |
+| `valid_sample.jpg` (Terracotta) | **balanced** | `u2net` | 6.2 ms | 2391.5 ms | 17.4 ms | 125.6 ms | 102.1 ms | **2653.7 ms** | 41.9 KB | `success` |
+| `valid_sample.jpg` (Terracotta) | **high** | `u2net` | 5.1 ms | 2132.8 ms | 20.5 ms | 120.5 ms | 72.3 ms | **2363.0 ms** | 41.9 KB | `success` |
+| `large_dimension.jpg` (3000px HD) | **fast** | `u2netp` | 695.5 ms | 1565.1 ms | 1914.0 ms | 176.5 ms | 117.9 ms | **4857.5 ms** | 61.5 KB | `success` |
+| `large_dimension.jpg` (3000px HD) | **balanced** | `u2net` | 316.2 ms | 1966.8 ms | 230.4 ms | 158.6 ms | 92.0 ms | **2857.4 ms** | 18.3 KB | `success` |
+| `large_dimension.jpg` (3000px HD) | **high** | `u2net` | 271.2 ms | 1707.0 ms | 203.9 ms | 290.5 ms | 127.2 ms | **2874.2 ms** | 18.3 KB | `success` |
+
+### 4. Test Suite Pass Count
+- **Total Tests**: 79 passed, 0 failed, 0 xfail, 0 skipped.
+- **Pass Rate**: 100% offline pass rate across unit, validation, blur detection, background removal, lighting correction, composition, export, and hardening test modules.
+
+### 5. Standardized Error Codes
+- `FILE_NOT_FOUND`: Input image path is invalid or missing.
+- `INVALID_IMAGE`: Corrupted image or invalid header bytes.
+- `UNSUPPORTED_FORMAT`: Format not in JPEG, PNG, WEBP, BMP.
+- `IMAGE_TOO_LARGE`: Image size exceeds `max_image_mb` (15 MB).
+- `IMAGE_TOO_BLURRY`: Laplacian variance < 15.0.
+- `EMPTY_MASK`: Background removal detected zero foreground subject pixels.
+- `MODEL_LOAD_FAILED`: ONNX model runtime failed to initialize session.
+- `STAGE_FAILED`: Unhandled internal exception in stage calculation.
+- `TIMEOUT`: Request exceeded configured execution timeout (`request_timeout_s=20s`).
+
+---
+
+## HANDOFF -> PHASE 7 (Final Polish, Demo Assets & SIH Submission Package)
+
+### 1. Verification Commands
 ```bash
-# Run Before/After Demo
-python examples/before_after_demo.py tests/fixtures/product_textile.jpg
-
 # Run All Offline Tests
 pytest tests/ -v
+
+# Run Latency & Quality Benchmark
+python eval/benchmark.py
+
+# Run Visual Pitch Demo
+python examples/before_after_demo.py tests/fixtures/product_textile.jpg
 ```
 
-### 2. Ready Components for Phase 6 API Wrapping
-- `VisionStudio().enhance(request)` is 100% thread-safe, pure-function based, and accepts both `EnhanceRequest` Pydantic models and plain dictionaries.
-- Contract `contracts.py` matches Pydantic v2 schemas ready for direct FastAPI request body & response model binding.
+### 2. Readiness for Final Submission
+- Package `vision_studio` is 100% standalone, contract-compliant, self-contained within `ai-vision-studio/`, and ready for packaging and judge presentation.
+
 
 

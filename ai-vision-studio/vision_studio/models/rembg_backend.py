@@ -5,6 +5,7 @@ import numpy as np
 from rembg import remove, new_session
 
 from .base import ModelBackend
+from vision_studio.utils.errors import VisionStudioError, MODEL_LOAD_FAILED
 from vision_studio.utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -39,17 +40,25 @@ class RembgBackend(ModelBackend):
         """Get or initialize a cached ONNX Runtime session for the model."""
         if model_name not in self._sessions:
             logger.info("Initializing ONNX session for model: %s (CPUExecutionProvider)", model_name)
-            session = new_session(
-                model_name=model_name,
-                providers=["CPUExecutionProvider"],
-            )
-            # Warm up session with a dummy inference to avoid first-request latency spikes
             try:
-                dummy = np.zeros((32, 32, 3), dtype=np.uint8)
-                remove(dummy, session=session, only_mask=True)
+                session = new_session(
+                    model_name=model_name,
+                    providers=["CPUExecutionProvider"],
+                )
+                # Warm up session with a dummy inference to avoid first-request latency spikes
+                try:
+                    dummy = np.zeros((32, 32, 3), dtype=np.uint8)
+                    remove(dummy, session=session, only_mask=True)
+                except Exception as e:
+                    logger.debug("Warmup dummy inference skipped: %s", e)
+                self._sessions[model_name] = session
             except Exception as e:
-                logger.debug("Warmup dummy inference skipped: %s", e)
-            self._sessions[model_name] = session
+                logger.error("Failed to load model session '%s': %s", model_name, e)
+                raise VisionStudioError(
+                    code=MODEL_LOAD_FAILED,
+                    message=f"Failed to load ONNX model session '{model_name}': {e}",
+                    stage="bg_removal",
+                ) from e
         return self._sessions[model_name]
 
     def load(self, model_path: str | None = None) -> None:

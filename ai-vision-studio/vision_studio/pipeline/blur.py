@@ -37,7 +37,7 @@ def apply_unsharp_mask(
 ) -> np.ndarray:
     """Apply lightweight OpenCV unsharp masking to enhance image edges.
 
-    Uses a Gaussian blur followed by weighted blending:
+    Uses a fast Gaussian blur followed by weighted blending:
         sharpened = image * alpha + blurred * beta + gamma
 
     Requirements met:
@@ -55,7 +55,7 @@ def apply_unsharp_mask(
     Returns:
         np.ndarray: Sharpened uint8 BGR image.
     """
-    blurred = cv2.GaussianBlur(image_bgr, (0, 0), sigmaX=sigma)
+    blurred = cv2.GaussianBlur(image_bgr, (5, 5), sigmaX=sigma)
     sharpened = cv2.addWeighted(image_bgr, alpha, blurred, beta, 0)
     return sharpened
 

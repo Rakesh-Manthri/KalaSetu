@@ -40,7 +40,7 @@ def remove_background(
 
     Raises:
         VisionStudioError: If mask is empty/near-empty (code=EMPTY_MASK, stage=bg_removal)
-        VisionStudioError: If model inference fails (code=STAGE_FAILED, stage=bg_removal)
+        VisionStudioError: If model loading/inference fails (code=MODEL_LOAD_FAILED or STAGE_FAILED)
     """
     quality = "balanced"
     if cfg is not None:
@@ -54,6 +54,8 @@ def remove_background(
     start_time = time.perf_counter()
     try:
         foreground_bgr, alpha_mask = backend.predict(image_bgr, quality=quality)
+    except VisionStudioError:
+        raise
     except Exception as e:
         logger.error("Background removal inference failed: %s", e)
         raise VisionStudioError(

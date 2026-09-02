@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 from typing import Any
 import numpy as np
@@ -27,6 +28,7 @@ def validate(
         VisionStudioError: If validation fails with a specific error code
             (FILE_NOT_FOUND, INVALID_IMAGE, UNSUPPORTED_FORMAT, IMAGE_TOO_LARGE, IMAGE_TOO_BLURRY).
     """
+    t0 = time.perf_counter()
     image_bgr, metadata = load_image(path=image_path, max_mb=max_mb)
     processed_bgr, blur_meta = process_blur(
         image_bgr,
@@ -34,9 +36,9 @@ def validate(
         light_threshold=light_threshold,
     )
     metadata.update(blur_meta)
+    metadata["duration_ms"] = round((time.perf_counter() - t0) * 1000, 2)
     return processed_bgr, metadata
 
 
 # Backward compatibility alias
 validate_image = validate
-

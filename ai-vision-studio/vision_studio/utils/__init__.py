@@ -12,6 +12,7 @@ from .errors import (
 )
 from .image_io import downscale_long_edge, load_image, save_image
 from .logging import get_logger
+from .timeout import run_with_timeout
 
 __all__ = [
     "VisionStudioError",
@@ -20,6 +21,7 @@ __all__ = [
     "load_image",
     "save_image",
     "downscale_long_edge",
+    "run_with_timeout",
     "FILE_NOT_FOUND",
     "INVALID_IMAGE",
     "UNSUPPORTED_FORMAT",
@@ -29,4 +31,3 @@ __all__ = [
     "TIMEOUT",
     "ALL_ERROR_CODES",
 ]
-

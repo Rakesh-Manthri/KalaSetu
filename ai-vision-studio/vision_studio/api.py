@@ -4,15 +4,16 @@ import time
 import cv2
 import numpy as np
 
-from .config import Settings
+from .config import Settings, get_settings
 from .contracts import EnhanceOptions, EnhanceRequest, EnhanceResponse
 from .pipeline.validate import validate
 from .pipeline.bg_removal import remove_background
 from .pipeline.lighting import correct_lighting
 from .pipeline.composition import compose
 from .pipeline.export import export
-from .utils.errors import VisionStudioError, make_error, STAGE_FAILED
+from .utils.errors import VisionStudioError, make_error, STAGE_FAILED, TIMEOUT
 from .utils.logging import get_logger
+from .utils.timeout import run_with_timeout
 
 logger = get_logger(__name__)
 
@@ -21,25 +22,12 @@ class VisionStudio:
     """Main entry point for AI Vision Studio."""
 
     def __init__(self, config: Settings | None = None) -> None:
-        self.config = config or Settings()
+        self.config = config or get_settings()
         logger.info("Initialized VisionStudio")
 
-    def enhance(self, request: EnhanceRequest | dict[str, Any]) -> EnhanceResponse:
-        """Process an image enhancement request.
-
-        Validates the input image (format, dimensions, limits, integrity) and executes
-        the complete end-to-end enhancement pipeline:
-        validate -> bg_removal -> lighting -> composition -> export.
-        """
+    def _execute_pipeline(self, req: EnhanceRequest) -> EnhanceResponse:
+        """Execute the end-to-end enhancement pipeline synchronously."""
         pipeline_start = time.perf_counter()
-
-        if isinstance(request, dict):
-            req = EnhanceRequest.model_validate(request)
-        elif isinstance(request, EnhanceRequest):
-            req = request
-        else:
-            raise TypeError(f"Expected EnhanceRequest or dict, got {type(request).__name__}")
-
         logger.info("Enhance called for image: %s", req.image_path)
 
         # Stage 1: Validation & Image I/O
@@ -66,7 +54,7 @@ class VisionStudio:
                 status="error",
                 processed_image_path=None,
                 metadata={},
-                errors=[make_error(stage="validate", code="STAGE_FAILED", message=str(e))],
+                errors=[make_error(stage="validate", code=STAGE_FAILED, message=str(e))],
             )
 
         errors: list[dict[str, Any]] = []
@@ -78,7 +66,7 @@ class VisionStudio:
                 bg_result = remove_background(image_array, req.options.model_dump())
                 logger.info("Background removal successful for %s", req.image_path)
             except VisionStudioError as e:
-                logger.warning("Background removal failed for image %s: %s", req.image_path, e.message)
+                logger.warning("Background removal failed for image %s: %s (%s)", req.image_path, e.message, e.code)
                 errors.append(e.to_dict())
             except Exception as e:
                 logger.error("Unexpected error in background removal for %s: %s", req.image_path, e, exc_info=True)
@@ -104,7 +92,7 @@ class VisionStudio:
                 current_image = lighting_result.image
                 logger.info("Lighting correction successful for %s", req.image_path)
             except VisionStudioError as e:
-                logger.warning("Lighting correction failed for image %s: %s", req.image_path, e.message)
+                logger.warning("Lighting correction failed for image %s: %s (%s)", req.image_path, e.message, e.code)
                 errors.append(e.to_dict())
             except Exception as e:
                 logger.error("Unexpected error in lighting correction for %s: %s", req.image_path, e, exc_info=True)
@@ -124,7 +112,7 @@ class VisionStudio:
                 )
                 logger.info("Composition successful for %s", req.image_path)
             except VisionStudioError as e:
-                logger.warning("Composition failed for image %s: %s", req.image_path, e.message)
+                logger.warning("Composition failed for image %s: %s (%s)", req.image_path, e.message, e.code)
                 errors.append(e.to_dict())
             except Exception as e:
                 logger.error("Unexpected error in composition for %s: %s", req.image_path, e, exc_info=True)
@@ -132,7 +120,7 @@ class VisionStudio:
 
         # Stage 5: Export & Montage Generation
         export_result = None
-        output_dir = Path(self.config.model_dir).parent / "outputs"
+        output_dir = Path(self.config.output_dir)
         output_dir.mkdir(parents=True, exist_ok=True)
         input_stem = Path(req.image_path).stem
 
@@ -158,7 +146,7 @@ class VisionStudio:
                 )
                 logger.info("Export successful for %s -> %s", req.image_path, export_result.image_path)
             except VisionStudioError as e:
-                logger.warning("Export failed for image %s: %s", req.image_path, e.message)
+                logger.warning("Export failed for image %s: %s (%s)", req.image_path, e.message, e.code)
                 errors.append(e.to_dict())
             except Exception as e:
                 logger.error("Unexpected error in export for %s: %s", req.image_path, e, exc_info=True)
@@ -172,7 +160,7 @@ class VisionStudio:
             processed_path = export_result.image_path
         elif errors and (bg_result is not None or lighting_result is not None or comp_result is not None):
             status = "partial"
-            processed_path = None
+            processed_path = export_result.image_path if export_result else None
         else:
             status = "error" if errors else "success"
             processed_path = export_result.image_path if export_result else None
@@ -213,3 +201,44 @@ class VisionStudio:
             metadata=metadata,
             errors=errors,
         )
+
+    def enhance(self, request: EnhanceRequest | dict[str, Any]) -> EnhanceResponse:
+        """Process an image enhancement request with timeout protection.
+
+        Validates the input image and executes the complete end-to-end enhancement pipeline:
+        validate -> bg_removal -> lighting -> composition -> export.
+        """
+        if isinstance(request, dict):
+            req = EnhanceRequest.model_validate(request)
+        elif isinstance(request, EnhanceRequest):
+            req = request
+        else:
+            raise TypeError(f"Expected EnhanceRequest or dict, got {type(request).__name__}")
+
+        timeout_s = getattr(self.config, "request_timeout_s", 20.0)
+
+        try:
+            return run_with_timeout(
+                self._execute_pipeline,
+                args=(req,),
+                seconds=timeout_s,
+                stage="pipeline",
+            )
+        except VisionStudioError as e:
+            logger.warning("Pipeline execution stopped with VisionStudioError: %s (code=%s)", e.message, e.code)
+            return EnhanceResponse(
+                contract_version="1.0",
+                status="error",
+                processed_image_path=None,
+                metadata={},
+                errors=[e.to_dict()],
+            )
+        except Exception as e:
+            logger.error("Pipeline execution failed unexpectedly: %s", e, exc_info=True)
+            return EnhanceResponse(
+                contract_version="1.0",
+                status="error",
+                processed_image_path=None,
+                metadata={},
+                errors=[make_error(stage="pipeline", code=STAGE_FAILED, message=str(e))],
+            )
