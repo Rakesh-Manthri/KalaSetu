@@ -38,7 +38,12 @@ class VisionStudio:
 
         # Stage 1: Validation & Image I/O
         try:
-            image_array, image_metadata = validate(req.image_path)
+            image_array, image_metadata = validate(
+                req.image_path,
+                max_mb=self.config.max_image_mb,
+                severe_threshold=self.config.blur_severe_threshold,
+                light_threshold=self.config.blur_light_threshold,
+            )
         except VisionStudioError as e:
             logger.warning("Validation failed for image %s: %s", req.image_path, e.message)
             return EnhanceResponse(

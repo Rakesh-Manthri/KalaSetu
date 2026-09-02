@@ -11,15 +11,15 @@ def setup_test_fixtures():
     """Ensure all required test fixtures exist before running tests."""
     FIXTURES_DIR.mkdir(parents=True, exist_ok=True)
 
-    # 1. valid_sample.jpg (400x300 RGB)
+    # 1. valid_sample.jpg (400x300 RGB with sharp pattern)
     valid_jpg_path = FIXTURES_DIR / "valid_sample.jpg"
-    if not valid_jpg_path.exists():
-        arr = np.zeros((300, 400, 3), dtype=np.uint8)
-        arr[:, :, 0] = 120  # R
-        arr[:, :, 1] = 180  # G
-        arr[:, :, 2] = 220  # B
-        img = Image.fromarray(arr, mode="RGB")
-        img.save(valid_jpg_path, format="JPEG", quality=95)
+    arr = np.zeros((300, 400, 3), dtype=np.uint8)
+    arr[:, :] = [220, 180, 120]
+    arr[50:250:20, :] = [30, 60, 90]
+    arr[:, 50:350:20] = [30, 60, 90]
+    arr[100:200, 100:300] = [180, 50, 40]
+    img = Image.fromarray(arr, mode="RGB")
+    img.save(valid_jpg_path, format="JPEG", quality=95)
 
     # 2. corrupt.jpg (plain text bytes, corrupt image)
     corrupt_jpg_path = FIXTURES_DIR / "corrupt.jpg"
@@ -55,20 +55,25 @@ def setup_test_fixtures():
             f.seek(16 * 1024 * 1024)
             f.write(b"\0")
 
-    # 7. large_dimension.jpg (3000x2400 RGB image)
+    # 7. large_dimension.jpg (3000x2400 RGB sharp image)
     large_dim_path = FIXTURES_DIR / "large_dimension.jpg"
-    if not large_dim_path.exists():
-        # Create a 3000x2400 image efficiently
-        img = Image.new("RGB", (3000, 2400), color=(100, 150, 200))
-        img.save(large_dim_path, format="JPEG", quality=80)
+    arr_large = np.zeros((2400, 3000, 3), dtype=np.uint8)
+    arr_large[:, :] = [100, 150, 200]
+    arr_large[::100, :] = [20, 40, 80]
+    arr_large[:, ::100] = [20, 40, 80]
+    img = Image.fromarray(arr_large, mode="RGB")
+    img.save(large_dim_path, format="JPEG", quality=85)
 
     # 8. exif_rotated.jpg (EXIF orientation tag = 6 -> 90 CW)
     exif_path = FIXTURES_DIR / "exif_rotated.jpg"
-    if not exif_path.exists():
-        img = Image.new("RGB", (300, 100), color=(50, 100, 150))
-        exif = img.getexif()
-        exif[0x0112] = 6  # Orientation: 6 (Rotate 90 CW)
-        img.save(exif_path, format="JPEG", exif=exif)
+    arr_exif = np.zeros((100, 300, 3), dtype=np.uint8)
+    arr_exif[:, :] = [50, 100, 150]
+    arr_exif[10:90:10, :] = [220, 200, 50]
+    arr_exif[:, 10:290:10] = [220, 200, 50]
+    img = Image.fromarray(arr_exif, mode="RGB")
+    exif = img.getexif()
+    exif[0x0112] = 6  # Orientation: 6 (Rotate 90 CW)
+    img.save(exif_path, format="JPEG", exif=exif)
 
     # 9. product_textile.jpg (simulated textile product with distinct foreground)
     product_textile_path = FIXTURES_DIR / "product_textile.jpg"

@@ -33,6 +33,12 @@ def test_valid_jpeg_validation(setup_test_fixtures):
     assert "norm_dims" in meta
     assert "format" in meta
     assert "has_alpha" in meta
+    assert "blur_score" in meta
+    assert "blur_status" in meta
+    assert "sharpened" in meta
+    assert isinstance(meta["blur_score"], (int, float))
+    assert meta["blur_status"] in ("sharp", "light_blur", "severe_blur")
+    assert isinstance(meta["sharpened"], bool)
     assert meta["format"] in ("jpeg", "jpg")
     assert meta["has_alpha"] is False
     assert meta["norm_dims"] == (w, h)

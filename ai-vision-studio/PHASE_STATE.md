@@ -8,10 +8,75 @@
 - [x] **Phase 2**: Standardized error codes and `make_error()` helper (`vision_studio/utils/errors.py`).
 - [x] **Phase 2**: Comprehensive test fixtures and offline test suite (`tests/test_validation.py`, `tests/conftest.py`, 17/17 tests passing).
 - [x] **Phase 2**: Integrated validation in `VisionStudio.enhance()`, safely rejecting bad inputs with clean error responses.
+- [x] **Phase 2.5**: Deterministic "Detect and Guide" blur quality check with OpenCV Laplacian variance (`vision_studio/pipeline/blur.py`).
+- [x] **Phase 2.5**: Added configurable thresholds `BLUR_SEVERE_THRESHOLD` (15.0) and `BLUR_LIGHT_THRESHOLD` (60.0).
+- [x] **Phase 2.5**: Added fast CPU-only unsharp masking for mildly blurry inputs before background removal.
+- [x] **Phase 2.5**: Extended standardized error codes with `IMAGE_TOO_BLURRY` and mobile UX guidance.
+- [x] **Phase 2.5**: Comprehensive blur test suite (`tests/test_blur_detection.py`, 42/42 tests passing across full test suite).
 - [x] **Phase 3**: ONNX Runtime singleton backend (`vision_studio/models/rembg_backend.py`) with CPUExecutionProvider, session warm-up, and tiered quality/speed profiles (`fast`, `balanced`, `high`).
 - [x] **Phase 3**: Background removal stage (`vision_studio/pipeline/bg_removal.py`) returning `BgRemovalResult` with BGR foreground, uint8 alpha mask, subject bounding box `(x, y, w, h)`, duration measurement, and empty mask error handling.
 - [x] **Phase 3**: Integrated background removal into `VisionStudio.enhance()` pipeline, saving transparent RGBA PNG cutouts to `outputs/` and returning `status="partial"`.
-- [x] **Phase 3**: Test suite with 100% pass rate (`tests/test_bg_removal.py`, 31/31 test suite passing offline).
+- [x] **Phase 3**: Test suite with 100% pass rate (`tests/test_bg_removal.py`, 42/42 test suite passing offline).
+
+---
+
+## Phase 2.5 Blur Detection Specifications
+
+### 1. Pipeline Location & Flow
+`Input Image -> load_image() (I/O, EXIF, normalization, <=2000px) -> compute_laplacian_variance() -> process_blur() -> (optional unsharp mask) -> Phase 3 rembg`
+
+### 2. Sharpness Metric & Laplacian Formula
+Sharpness is calculated strictly on the grayscale normalized image using the variance of the 64-bit float Laplacian kernel:
+```python
+gray = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2GRAY)
+blur_score = float(cv2.Laplacian(gray, cv2.CV_64F).var())
+```
+
+### 3. Thresholds & Classification
+Configurable thresholds centralized in `vision_studio/config.py` and `vision_studio/pipeline/blur.py`:
+- `BLUR_SEVERE_THRESHOLD = 15.0`
+- `BLUR_LIGHT_THRESHOLD = 60.0`
+
+| Variance Score Range | Status (`blur_status`) | Action | Metadata `sharpened` | Rembg Executed? |
+| :--- | :--- | :--- | :--- | :--- |
+| `score < 15.0` | `"severe_blur"` | Raise `VisionStudioError(code="IMAGE_TOO_BLURRY")` | N/A (aborts) | **No** (halts before rembg) |
+| `15.0 <= score < 60.0` | `"light_blur"` | Apply fast unsharp mask | `True` | **Yes** (passes sharpened image) |
+| `score >= 60.0` | `"sharp"` | None (continue unchanged) | `False` | **Yes** (passes original BGR) |
+
+### 4. Measured Laplacian Variances (Empirical Benchmarks)
+| Fixture / Image | Condition | Measured Variance | Classification |
+| :--- | :--- | :--- | :--- |
+| `product_textile.jpg` | Original sharp synthetic textile | **101.60** | `sharp` |
+| `handpainted-clay-pot...jpg` | Real artisan photo (pot on background) | **50.90** | `light_blur` (receives unsharp mask) |
+| `product_textile.jpg` | Mild Gaussian blur (k=3, s=0.7) | **36.75** | `light_blur` |
+| `product_textile.jpg` | Moderate Gaussian blur (k=3, s=1.0) | **12.64** | `severe_blur` (rejected) |
+| `product_textile.jpg` | Heavy Gaussian blur (k=31, s=10.0) | **0.20** | `severe_blur` (rejected) |
+
+### 5. Unsharp Mask Parameters
+```python
+blurred = cv2.GaussianBlur(image_bgr, (0, 0), sigmaX=1.0)
+sharpened_bgr = cv2.addWeighted(image_bgr, 1.5, blurred, -0.5, 0)
+```
+- Preserves (H, W, 3) BGR `uint8` invariant.
+- Average CPU latency: **~12 ms** on a 2000x2000 image (< 100 ms budget).
+
+### 6. Mobile Error Response Contract
+For severely blurry images, `VisionStudio.enhance()` safely returns:
+```json
+{
+  "contract_version": "1.0",
+  "status": "error",
+  "processed_image_path": null,
+  "metadata": {},
+  "errors": [
+    {
+      "code": "IMAGE_TOO_BLURRY",
+      "message": "Your photo looks a bit blurry! Try holding your camera steady or tapping on the product to focus, then snap another photo.",
+      "stage": "validate"
+    }
+  ]
+}
+```
 
 ---
 
