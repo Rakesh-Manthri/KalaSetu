@@ -22,6 +22,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount static output directory for enhanced product images & montages
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
+
+outputs_candidates = [
+    Path(__file__).resolve().parent.parent / "ai-vision-studio" / "outputs",
+    Path("ai-vision-studio/outputs").resolve(),
+    Path("../ai-vision-studio/outputs").resolve(),
+]
+outputs_dir = next((p for p in outputs_candidates if p.parent.exists()), outputs_candidates[0])
+outputs_dir.mkdir(parents=True, exist_ok=True)
+app.mount("/outputs", StaticFiles(directory=str(outputs_dir)), name="outputs")
+
 # Include API Routers
 app.include_router(voice.router)
 app.include_router(image.router)

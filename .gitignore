@@ -41,8 +41,9 @@ develop-eggs/
 dist/
 downloads/
 eggs/
-.eggs/
-lib/
+/backend/lib/
+!kalasetu_app/lib/
+!kalasetu_app/lib/**
 lib64/
 parts/
 sdist/
@@ -137,3 +138,5 @@ app.*.map.json
 *.bak
 *.swp
 *~
+outputs/
+**/outputs/
