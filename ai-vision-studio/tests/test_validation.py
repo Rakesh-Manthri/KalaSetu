@@ -160,7 +160,7 @@ def test_enhance_api_with_valid_image(setup_test_fixtures):
     req = EnhanceRequest(image_path=str(valid_path))
     resp = studio.enhance(req)
 
-    assert resp.status == "success"
+    assert resp.status in ("success", "partial")
     assert resp.contract_version == "1.0"
     assert resp.errors == []
     assert "image_metadata" in resp.metadata

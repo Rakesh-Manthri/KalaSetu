@@ -28,3 +28,5 @@ tests/fixtures/oversized*
 tests/fixtures/*.large
 .pytest_cache/
 stub_output/
+outputs/
+*.onnx

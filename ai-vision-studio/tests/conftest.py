@@ -70,4 +70,21 @@ def setup_test_fixtures():
         exif[0x0112] = 6  # Orientation: 6 (Rotate 90 CW)
         img.save(exif_path, format="JPEG", exif=exif)
 
+    # 9. product_textile.jpg (simulated textile product with distinct foreground)
+    product_textile_path = FIXTURES_DIR / "product_textile.jpg"
+    if not product_textile_path.exists():
+        # Create a synthetic textile-like image: colored rectangle on different background
+        arr = np.zeros((400, 600, 3), dtype=np.uint8)
+        # Background: light gray
+        arr[:, :] = [200, 200, 200]
+        # Foreground: textile-colored rectangle (simulating a fabric piece)
+        arr[80:320, 150:450] = [180, 100, 60]  # Terracotta/brown textile color
+        # Add some "fringe" details - thin lines at edges
+        arr[75:80, 150:450] = [160, 80, 40]
+        arr[320:325, 150:450] = [160, 80, 40]
+        arr[80:320, 145:150] = [160, 80, 40]
+        arr[80:320, 450:455] = [160, 80, 40]
+        img = Image.fromarray(arr, mode="RGB")
+        img.save(product_textile_path, format="JPEG", quality=95)
+
     return FIXTURES_DIR

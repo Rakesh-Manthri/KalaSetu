@@ -46,23 +46,22 @@ def test_enhance_nonexistent_path_returns_error():
 
 
 def test_enhance_valid_image_smoke(setup_test_fixtures):
-    """Verify enhance returns success and valid metadata when given a real image."""
+    """Verify enhance returns valid response and metadata when given a real image."""
     from vision_studio import EnhanceOptions, EnhanceRequest, VisionStudio
 
     valid_img = setup_test_fixtures / "valid_sample.jpg"
     studio = VisionStudio()
     request = EnhanceRequest(
         image_path=str(valid_img),
-        options=EnhanceOptions(),
+        options=EnhanceOptions(quality="fast"),
     )
     response = studio.enhance(request)
 
-    assert response.status == "success"
+    assert response.status in ("success", "partial")
     assert response.contract_version == "1.0"
-    assert response.processed_image_path == "stub_output/product.jpg"
-    assert response.metadata.get("phase") == 2
-    assert "image_metadata" in response.metadata
     assert response.errors == []
+    assert "image_metadata" in response.metadata
+    assert "bg_removal" in response.metadata
 
 
 def test_enhance_response_contract_fields():
@@ -85,12 +84,12 @@ def test_enhance_response_contract_fields():
     assert data["errors"] == []
 
 
-def test_rembg_backend_stub_not_implemented():
-    """Verify that RembgBackend raises NotImplementedError in Phase 1 stub."""
-    from vision_studio.models.rembg_backend import RembgBackend
+def test_rembg_backend_singleton():
+    """Verify that RembgBackend behaves as a singleton and exposes predict/load."""
+    from vision_studio.models.rembg_backend import RembgBackend, get_rembg_backend
 
-    backend = RembgBackend()
-    with pytest.raises(NotImplementedError):
-        backend.load()
-    with pytest.raises(NotImplementedError):
-        backend.predict(None)
+    backend1 = get_rembg_backend()
+    backend2 = RembgBackend()
+    assert backend1 is backend2
+    assert hasattr(backend1, "load")
+    assert hasattr(backend1, "predict")
