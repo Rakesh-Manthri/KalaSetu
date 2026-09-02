@@ -3,21 +3,17 @@ import 'package:flutter/foundation.dart';
 
 /// API configuration for KalaSetu Backend & AI Vision Studio
 class ApiConstants {
+  /// Render production live backend URL
+  static const String productionUrl = 'https://kalasetu-wvjk.onrender.com';
+
   // Default base URL dynamically resolved per host platform
   static String get defaultBaseUrl {
-    if (kIsWeb) {
-      return 'http://127.0.0.1:8000';
-    }
-    if (Platform.isAndroid) {
-      // 10.0.2.2 maps to the host machine's localhost in the Android emulator
-      return 'http://10.0.2.2:8000';
-    }
-    // iOS simulator / Windows Desktop / macOS / Linux
-    return 'http://127.0.0.1:8000';
+    // Production Render deployment URL as primary default
+    return productionUrl;
   }
 
-  // Active base URL (modifiable at runtime for live physical device WiFi testing)
-  static String baseUrl = defaultBaseUrl;
+  // Active base URL
+  static String baseUrl = productionUrl;
 
   // Endpoint routes
   static const String enhanceEndpoint = '/api/v1/image/enhance';

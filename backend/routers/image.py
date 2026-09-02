@@ -16,8 +16,12 @@ from services.image_processor import (
     get_vision_studio,
     OUTPUTS_DIR,
 )
-from vision_studio.contracts import EnhanceRequest, EnhanceOptions, EnhanceResponse
-from vision_studio.utils.errors import IMAGE_TOO_BLURRY, STAGE_FAILED
+try:
+    from vision_studio.contracts import EnhanceRequest, EnhanceOptions, EnhanceResponse
+    from vision_studio.utils.errors import IMAGE_TOO_BLURRY, STAGE_FAILED
+except Exception:
+    STAGE_FAILED = "STAGE_FAILED"
+    IMAGE_TOO_BLURRY = "IMAGE_TOO_BLURRY"
 
 router = APIRouter(prefix="/api/v1/image", tags=["AI Image Studio"])
 

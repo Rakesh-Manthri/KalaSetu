@@ -19,17 +19,13 @@ class HttpApiClient implements ApiClient {
   final Dio _dio;
   
   static String get defaultBaseUrl {
-    if (kIsWeb) return 'http://localhost:8000/api/v1';
-    try {
-      if (Platform.isAndroid) return 'http://10.0.2.2:8000/api/v1';
-    } catch (_) {}
-    return 'http://localhost:8000/api/v1';
+    return 'https://kalasetu-wvjk.onrender.com/api/v1';
   }
 
   HttpApiClient(this._dio, {String? customBaseUrl}) {
     _dio.options.baseUrl = customBaseUrl ?? defaultBaseUrl;
-    _dio.options.connectTimeout = const Duration(seconds: 10);
-    _dio.options.receiveTimeout = const Duration(seconds: 10);
+    _dio.options.connectTimeout = const Duration(seconds: 60);
+    _dio.options.receiveTimeout = const Duration(seconds: 60);
   }
 
   /// Resolve a relative path like `/outputs/craft_enhanced.jpg` to a full
