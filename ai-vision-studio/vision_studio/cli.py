@@ -44,7 +44,7 @@ def main(args: list[str] | None = None) -> int:
     studio = VisionStudio()
     response = studio.enhance(request)
     print(response.model_dump_json(indent=2))
-    return 0 if response.status == "success" else 1
+    return 0 if response.status in ("success", "partial") else 1
 
 
 if __name__ == "__main__":

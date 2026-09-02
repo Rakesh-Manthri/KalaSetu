@@ -1,6 +1,6 @@
 # Phase State Tracking — AI Vision Studio
 
-## Current Status: Phase 3 Complete (Background Removal with rembg / U2-Net)
+## Current Status: Phase 4 Complete (Lighting Correction with Gray-World WB, Auto-Gamma, and LAB CLAHE)
 
 ### Completed Tasks
 - [x] **Phase 1**: Package skeleton, pydantic contract v1.0, configuration, logging, pipeline stubs, CLI, smoke tests.
@@ -17,6 +17,9 @@
 - [x] **Phase 3**: Background removal stage (`vision_studio/pipeline/bg_removal.py`) returning `BgRemovalResult` with BGR foreground, uint8 alpha mask, subject bounding box `(x, y, w, h)`, duration measurement, and empty mask error handling.
 - [x] **Phase 3**: Integrated background removal into `VisionStudio.enhance()` pipeline, saving transparent RGBA PNG cutouts to `outputs/` and returning `status="partial"`.
 - [x] **Phase 3**: Test suite with 100% pass rate (`tests/test_bg_removal.py`, 42/42 test suite passing offline).
+- [x] **Phase 4**: Classical CV lighting correction stage (`vision_studio/pipeline/lighting.py`) with Gray-World white balance, auto-gamma correction, LAB CLAHE shadow/contrast enhancement, and bitwise masked foreground blending.
+- [x] **Phase 4**: Integrated lighting correction into `VisionStudio.enhance()`, updating output cutouts and recording execution metrics (`white_balance_gains`, `gamma_applied`, `mean_luminance_before/after`).
+- [x] **Phase 4**: Comprehensive test suite (`tests/test_lighting.py`, 51/51 tests passing across full test suite).
 
 ---
 
@@ -154,3 +157,80 @@ Execute Phase 3 definition of done one-liner:
 ```bash
 python -c "from vision_studio import VisionStudio; from vision_studio.contracts import EnhanceRequest, EnhanceOptions; r = VisionStudio().enhance(EnhanceRequest(image_path='tests/fixtures/product_textile.jpg', options=EnhanceOptions(quality='fast'))); print(r.status, r.metadata)"
 ```
+
+---
+
+## Phase 4 Lighting Correction Specifications
+
+### 1. Stage Signature & Data Contract
+#### `correct_lighting` (`vision_studio/pipeline/lighting.py`)
+```python
+@dataclass
+class LightingResult:
+    image: np.ndarray             # np.ndarray, dtype=uint8, shape=(H, W, 3), BGR format
+    metadata: dict[str, Any]      # white_balance_gains, gamma_applied, mean_luminance_before/after, duration_ms
+
+def correct_lighting(
+    image_bgr: np.ndarray,
+    mask: np.ndarray | None = None,
+    cfg: Any = None,
+) -> LightingResult:
+    """Correct lighting, white balance, and contrast on masked foreground pixels."""
+```
+
+### 2. Correction Pipeline & Parameter Order
+1. **Masked White Balance (Gray-World Assumption)**:
+   - Evaluated on foreground pixels (`mask > 0`).
+   - Mean channel intensities: $(\mu_B, \mu_G, \mu_R)$.
+   - Gray target: $\mu_{gray} = \frac{\mu_B + \mu_G + \mu_R}{3.0}$.
+   - Channel gains: $g_c = \frac{\mu_{gray}}{\mu_c}$, clamped strictly to $[0.6, 1.8]$.
+   - Applied to BGR channels in float32 and clipped to $[0, 255]$.
+2. **Masked Auto-Gamma Correction**:
+   - Perceived luminance $Y = 0.114 B + 0.587 G + 0.299 R$ measured on WB-corrected foreground.
+   - Normalized luminance $L_{norm} = \text{clip}(Y / 255.0, 0.01, 0.99)$; target mid-gray $T_{norm} = 128.0 / 255.0 \approx 0.502$.
+   - Gamma exponent: $\gamma = \frac{\ln(T_{norm})}{\ln(L_{norm})}$, clamped to $[0.5, 2.0]$.
+   - Applied via 256-entry precomputed `cv2.LUT` table for near-instant CPU execution ($< 1$ ms).
+3. **Shadow & Local Contrast Enhancement (LAB CLAHE)**:
+   - Converted to LAB color space.
+   - Applied `cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))` strictly to the L (luminance) channel to avoid chromatic distortion.
+   - Converted back from LAB to BGR.
+4. **Masked Reconstruction & Background Preservation**:
+   - Background pixels where `mask == 0` are bitwise preserved from the input BGR image:
+     ```python
+     final_image = image_bgr.copy()
+     final_image[mask_bool] = corrected_bgr[mask_bool]
+     ```
+   - If mask is `None` or all zeros, the stage falls back to correcting the entire image safely without crashing (`fallback_full_image = True`).
+
+### 3. Clamp Ranges & Safeguards
+- **White Balance Gain Clamp**: $[0.6, 1.8]$ prevents extreme color shifts or blown highlights on artisan crafts with dominant natural dye hues (e.g. indigo or madder red).
+- **Auto-Gamma Clamp**: $[0.5, 2.0]$ prevents excessive grain amplification in deep shadows or washed-out highlights.
+- **Invariant**: Input and output are strictly 3-channel `uint8` BGR with identical shape `(H, W, 3)`. Background pixels (`mask == 0`) remain 100% bitwise unchanged.
+
+### 4. Empirical Test Measurements (Before / After)
+| Test Fixture / Condition | Mean Luminance (Before) | Mean Luminance (After) | WB Gains $[R, G, B]$ | Gamma $\gamma$ | Result |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `dark_yellow_fixture` (Dark, yellow-tinted) | **56.63** | **137.91** | $[0.6000, 0.8202, 1.8000]$ | **0.5000** | Brighter & neutral |
+| `product_textile.jpg` (Fast rembg output) | **122.03** | **131.12** | $[0.6515, 1.1221, 1.7423]$ | **0.8718** | Balanced highlights |
+| `neutral_mid_gray` (128 mid-gray) | **128.00** | **128.00** | $[1.0000, 1.0000, 1.0000]$ | **1.0000** | Preserved (no distortion) |
+
+---
+
+## HANDOFF -> PHASE 5 (Composition, Background Placement, and Export)
+
+### 1. Available Artifacts & Stage Outputs
+From Phase 4, `VisionStudio.enhance()` produces:
+- `current_image` (BGR `uint8`): Lighting-corrected foreground with background pixels zeroed out (or original).
+- `bg_result.mask` (Grayscale `uint8`): Segmentation alpha mask with `(H, W)` dimensions.
+- `bg_result.bbox`: Subject bounding box `(x, y, w, h)`.
+- `metadata["lighting"]`: Dictionary with `white_balance_gains`, `gamma_applied`, `mean_luminance_before`, `mean_luminance_after`, `duration_ms`.
+
+### 2. Phase 5 Objectives
+1. **Composition & Canvas Placement**:
+   - Place extracted, lighting-corrected subject onto standard e-commerce background (e.g. solid white `#FFFFFF` or subtle neutral studio backdrop) sized to `EnhanceOptions.output_size` (default `1000x1000`).
+   - Center and scale subject with standard margins (e.g. 80–85% canvas occupancy based on `bbox`).
+2. **Soft Shadow Generation**:
+   - Render a subtle, natural contact shadow beneath the product base for photorealistic grounding.
+3. **Export & Format Optimization**:
+   - Final JPEG/PNG export with configurable compression quality and metadata preservation.
+

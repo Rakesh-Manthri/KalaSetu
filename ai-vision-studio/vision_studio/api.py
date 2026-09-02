@@ -7,6 +7,7 @@ from .config import Settings
 from .contracts import EnhanceOptions, EnhanceRequest, EnhanceResponse
 from .pipeline.validate import validate
 from .pipeline.bg_removal import remove_background
+from .pipeline.lighting import correct_lighting
 from .utils.errors import VisionStudioError, make_error, STAGE_FAILED
 from .utils.logging import get_logger
 from .utils.image_io import save_image
@@ -79,18 +80,41 @@ class VisionStudio:
             logger.error("Unexpected error in background removal for %s: %s", req.image_path, e, exc_info=True)
             errors.append(make_error(stage="bg_removal", code=STAGE_FAILED, message=str(e)))
 
+        # Stage 3: Lighting Correction
+        lighting_result = None
+        current_image = bg_result.image if bg_result is not None else image_array
+        current_mask = bg_result.mask if bg_result is not None else None
+
+        if not errors and req.options.correct_lighting:
+            try:
+                lighting_result = correct_lighting(
+                    current_image,
+                    mask=current_mask,
+                    cfg=req.options.model_dump(),
+                )
+                current_image = lighting_result.image
+                logger.info("Lighting correction successful for %s", req.image_path)
+            except VisionStudioError as e:
+                logger.warning("Lighting correction failed for image %s: %s", req.image_path, e.message)
+                errors.append(e.to_dict())
+            except Exception as e:
+                logger.error("Unexpected error in lighting correction for %s: %s", req.image_path, e, exc_info=True)
+                errors.append(make_error(stage="lighting", code=STAGE_FAILED, message=str(e)))
+        elif not req.options.correct_lighting:
+            logger.info("Lighting correction skipped (disabled in options)")
+
         # Determine overall status
         if errors:
             status = "error"
             processed_path = None
         else:
-            status = "partial"  # Later stages (lighting, composition, export) are stubbed
+            status = "partial"  # Composition and export are stubbed (Phase 5)
             processed_path = None
 
         # Save transparent RGBA output if background removal succeeded
-        if bg_result is not None:
+        if bg_result is not None and not errors:
             try:
-                rgba_output = cv2.cvtColor(bg_result.image, cv2.COLOR_BGR2BGRA)
+                rgba_output = cv2.cvtColor(current_image, cv2.COLOR_BGR2BGRA)
                 rgba_output[:, :, 3] = bg_result.mask
                 output_dir = Path(self.config.model_dir).parent / "outputs"
                 output_dir.mkdir(parents=True, exist_ok=True)
@@ -108,11 +132,12 @@ class VisionStudio:
             status=status,
             processed_image_path=processed_path,
             metadata={
-                "phase": 3,
+                "phase": 4,
                 "options": req.options.model_dump(),
                 "original_image_path": req.image_path,
                 "image_metadata": image_metadata,
                 "bg_removal": bg_result.metadata if bg_result else None,
+                "lighting": lighting_result.metadata if lighting_result else None,
             },
             errors=errors,
         )
