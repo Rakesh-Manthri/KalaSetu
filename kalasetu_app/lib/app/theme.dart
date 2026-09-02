@@ -11,7 +11,6 @@ class AppTheme {
         primary: AppColors.terracotta,
         secondary: AppColors.trustBlue,
         surface: AppColors.surfaceLight,
-        background: AppColors.background,
       ),
       scaffoldBackgroundColor: AppColors.background,
       appBarTheme: const AppBarTheme(
@@ -30,7 +29,7 @@ class AppTheme {
           textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: Colors.white,
         elevation: 0,
         shape: RoundedRectangleBorder(

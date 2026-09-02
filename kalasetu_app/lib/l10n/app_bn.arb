@@ -1,0 +1,135 @@
+{
+  "@@locale": "bn",
+  "appName": "কলা সেতু",
+  "homeGreeting": "স্বাগতম, কারিগর!",
+  "namasteRamesh": "নমস্তে, রমেশ",
+  "ondcSyncLive": "ONDC সিঙ্ক লাইভ",
+  "tapToCreateListing": "ভয়েস এবং ক্যামেরা দিয়ে পণ্য তালিকা তৈরি করতে ট্যাপ করুন",
+  "startNow": "এখনই শুরু করুন",
+  "liveOnOndc": "ONDC তে লাইভ",
+  "newOrdersCount": "নতুন অর্ডার",
+  "recentActivity": "সাম্প্রতিক কাজ",
+  "active": "সক্রিয়",
+  "aiProcessing": "AI প্রসেসিং...",
+  "newListing": "নতুন ভয়েস ও ফটো তালিকা",
+  "newListingSubtitle": "ছবি তুলুন এবং আপনার শিল্পের বর্ণনা দিন",
+  "myProducts": "আমার পণ্য",
+  "myProductsCount": "{published} প্রকাশিত · {drafts} ড্রাফ্ট",
+  "@myProductsCount": {
+    "placeholders": {
+      "published": { "type": "int" },
+      "drafts": { "type": "int" }
+    }
+  },
+  "online": "অনলাইন",
+  "offline": "অফলাইন",
+  "lowBandwidth": "নিম্ন ব্যান্ডউইথ",
+  "cameraStepTitle": "ধাপ {current} / {total}",
+  "@cameraStepTitle": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "angleFront": "সামনের দৃশ্য",
+  "angleDetail": "বিস্তারিত / টেক্সচার",
+  "angleProgress": "কাজ চলছে",
+  "capture": "ক্যাপচার",
+  "retake": "আবার নিন",
+  "delete": "মুছুন",
+  "next": "পরবর্তী",
+  "back": "পিছনে",
+  "voiceTitle": "আপনার পণ্য সম্পর্কে আমাদের বলুন",
+  "voicePrompt": "মাইক্রোফোনে ট্যাপ করুন এবং আপনার ভাষায় আপনার শিল্পের বর্ণনা দিন",
+  "recording": "রেকর্ডিং...",
+  "tapToRecord": "রেকর্ড করতে ট্যাপ করুন",
+  "play": "চালান",
+  "pause": "থামান",
+  "reRecord": "আবার রেকর্ড করুন",
+  "suggestedTopics": "প্রস্তাবিত বিষয়:",
+  "topicMaterial": "ব্যবহৃত উপকরণ",
+  "topicTime": "তৈরি করতে সময়",
+  "topicStory": "শিল্পের পেছনের গল্প",
+  "generateListing": "তালিকা তৈরি করুন",
+  "previewTitle": "তালিকা পূর্বরূপ",
+  "beforeImage": "আগে",
+  "afterImage": "পরে",
+  "description": "বর্ণনা",
+  "fairPrice": "ন্যায্য মূল্য",
+  "priceBreakdown": "মূল্য ভাঙ্গন",
+  "materials": "উপকরণ",
+  "labor": "শ্রম",
+  "fairMargin": "ন্যায্য মার্জিন",
+  "category": "বিভাগ",
+  "approveAndPush": "অনুমোদন করুন এবং ONDC তে পাঠান",
+  "editDetails": "বিবরণ সম্পাদনা করুন",
+  "processing": "আপনার শিল্প প্রসেস করা হচ্ছে...",
+  "processingSubtitle": "আমাদের AI আপনার ছবিগুলিকে উন্নত করছে",
+  "myListingsTitle": "আমার পণ্য",
+  "filterAll": "সব পণ্য",
+  "filterDraft": "ড্রাফ্ট",
+  "filterPending": "অপেক্ষমাণ",
+  "filterPublished": "ONDC তে লাইভ",
+  "filterUnderReview": "পর্যালোচনাধীন",
+  "statusDraft": "ড্রাফ্ট",
+  "statusProcessing": "প্রসেসিং",
+  "statusPending": "অনুমোদনের অপেক্ষায়",
+  "statusPublished": "লাইভ",
+  "stockUnits": "স্টক: {count} ইউনিট",
+  "@stockUnits": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ordersHub": "অর্ডার হাব",
+  "newOrdersTab": "নতুন অর্ডার ({count})",
+  "@newOrdersTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "inTransitTab": "ট্রানজিটে ({count})",
+  "@inTransitTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "completedTab": "সম্পন্ন",
+  "acceptOrder": "অর্ডার গ্রহণ করুন",
+  "packAndShip": "প্যাক এবং শিপ",
+  "craftPassportTitle": "ডিজিটাল ক্রাফট পাসপোর্ট",
+  "artisanName": "কারিগর",
+  "location": "স্থান",
+  "giTag": "GI ট্যাগ",
+  "materialsUsed": "উপকরণ",
+  "techniques": "কৌশল",
+  "scanQr": "সত্যতা যাচাই করতে স্ক্যান করুন",
+  "sharePassport": "পাসপোর্ট শেয়ার করুন",
+  "uploadSuccess": "তালিকা সফলভাবে প্রকাশিত হয়েছে!",
+  "uploadFailed": "আপলোড ব্যর্থ হয়েছে। পুনরায় চেষ্টা করতে ট্যাপ করুন।",
+  "retry": "পুনরায় চেষ্টা করুন",
+  "noListingsYet": "এখনও কোনও তালিকা নেই",
+  "noListingsSubtitle": "ছবি তুলে আপনার প্রথম তালিকা তৈরি করুন",
+  "savedAsDraft": "ড্রাফ্ট হিসেবে সেভ করা হয়েছে",
+  "connectionRestored": "সংযোগ পুনরুদ্ধার করা হয়েছে",
+  "hours": "{count} ঘণ্টা",
+  "@hours": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "navHome": "হোম",
+  "navProducts": "পণ্য",
+  "navOrders": "অর্ডার",
+  "navProfile": "প্রোফাইল",
+  "totalSales": "মোট বিক্রয়",
+  "productsLive": "লাইভ পণ্য",
+  "giAuthenticated": "GI প্রমাণীকৃত",
+  "viewCraftPassport": "ক্রাফট পাসপোর্ট দেখুন",
+  "languageSettings": "ভাষা সেটিংস",
+  "ondcNetworkStatus": "ONDC নেটওয়ার্ক স্ট্যাটাস",
+  "helpVoiceSupport": "সহায়তা এবং ভয়েস সাপোর্ট",
+  "selectLanguage": "ভাষা নির্বাচন করুন",
+  "defaultLanguage": "ডিফল্ট ভাষা",
+  "regionalLanguages": "আঞ্চলিক ভাষা"
+}

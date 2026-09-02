@@ -1,0 +1,135 @@
+{
+  "@@locale": "hi",
+  "appName": "कला सेतु",
+  "homeGreeting": "स्वागत है, कारीगर!",
+  "namasteRamesh": "नमस्ते, रमेश",
+  "ondcSyncLive": "ONDC सिंक लाइव",
+  "tapToCreateListing": "आवाज़ और कैमरे से उत्पाद लिस्टिंग बनाएं",
+  "startNow": "अभी शुरू करें",
+  "liveOnOndc": "ONDC पर लाइव",
+  "newOrdersCount": "नए ऑर्डर",
+  "recentActivity": "हाल की गतिविधि",
+  "active": "सक्रिय",
+  "aiProcessing": "AI प्रोसेसिंग...",
+  "newListing": "नई आवाज़ और फोटो लिस्टिंग",
+  "newListingSubtitle": "फोटो लें और अपनी कला का वर्णन करें",
+  "myProducts": "मेरे उत्पाद",
+  "myProductsCount": "{published} प्रकाशित · {drafts} ड्राफ्ट",
+  "@myProductsCount": {
+    "placeholders": {
+      "published": { "type": "int" },
+      "drafts": { "type": "int" }
+    }
+  },
+  "online": "ऑनलाइन",
+  "offline": "ऑफलाइन",
+  "lowBandwidth": "कम बैंडविड्थ",
+  "cameraStepTitle": "चरण {current} / {total}",
+  "@cameraStepTitle": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "angleFront": "सामने का दृश्य",
+  "angleDetail": "बारीक / बनावट",
+  "angleProgress": "कला प्रगति में",
+  "capture": "कैप्चर",
+  "retake": "फिर से लें",
+  "delete": "हटाएं",
+  "next": "आगे",
+  "back": "पीछे",
+  "voiceTitle": "अपने उत्पाद के बारे में बताएं",
+  "voicePrompt": "माइक्रोफोन दबाएं और अपनी भाषा में अपनी कला का वर्णन करें",
+  "recording": "रिकॉर्डिंग...",
+  "tapToRecord": "रिकॉर्ड करने के लिए दबाएं",
+  "play": "चलाएं",
+  "pause": "रुकें",
+  "reRecord": "फिर से रिकॉर्ड",
+  "suggestedTopics": "सुझाए गए विषय:",
+  "topicMaterial": "उपयोग की गई सामग्री",
+  "topicTime": "बनाने में लगा समय",
+  "topicStory": "कला के पीछे की कहानी",
+  "generateListing": "लिस्टिंग बनाएं",
+  "previewTitle": "लिस्टिंग पूर्वावलोकन",
+  "beforeImage": "पहले",
+  "afterImage": "बाद",
+  "description": "विवरण",
+  "fairPrice": "उचित मूल्य",
+  "priceBreakdown": "मूल्य विवरण",
+  "materials": "सामग्री",
+  "labor": "श्रम",
+  "fairMargin": "उचित मार्जिन",
+  "category": "श्रेणी",
+  "approveAndPush": "स्वीकृत करें और ONDC पर भेजें",
+  "editDetails": "विवरण संपादित करें",
+  "processing": "आपकी कला प्रोसेस हो रही है...",
+  "processingSubtitle": "हमारी AI आपकी तस्वीरें बेहतर बना रही है",
+  "myListingsTitle": "मेरे उत्पाद",
+  "filterAll": "सभी उत्पाद",
+  "filterDraft": "ड्राफ्ट",
+  "filterPending": "लंबित",
+  "filterPublished": "ONDC पर लाइव",
+  "filterUnderReview": "समीक्षाधीन",
+  "statusDraft": "ड्राफ्ट",
+  "statusProcessing": "प्रोसेसिंग",
+  "statusPending": "स्वीकृति लंबित",
+  "statusPublished": "लाइव",
+  "stockUnits": "स्टॉक: {count} इकाइयां",
+  "@stockUnits": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ordersHub": "ऑर्डर हब",
+  "newOrdersTab": "नए ऑर्डर ({count})",
+  "@newOrdersTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "inTransitTab": "ट्रांजिट में ({count})",
+  "@inTransitTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "completedTab": "पूरा हुआ",
+  "acceptOrder": "ऑर्डर स्वीकार करें",
+  "packAndShip": "पैक और शिप",
+  "craftPassportTitle": "डिजिटल कला पासपोर्ट",
+  "artisanName": "कारीगर",
+  "location": "स्थान",
+  "giTag": "GI टैग",
+  "materialsUsed": "सामग्री",
+  "techniques": "तकनीक",
+  "scanQr": "प्रमाणिकता सत्यापित करने के लिए स्कैन करें",
+  "sharePassport": "पासपोर्ट साझा करें",
+  "uploadSuccess": "लिस्टिंग सफलतापूर्वक प्रकाशित!",
+  "uploadFailed": "अपलोड विफल। पुन: प्रयास के लिए दबाएं।",
+  "retry": "पुन: प्रयास",
+  "noListingsYet": "अभी कोई लिस्टिंग नहीं",
+  "noListingsSubtitle": "फोटो लेकर अपनी पहली लिस्टिंग बनाएं",
+  "savedAsDraft": "ड्राफ्ट के रूप में सहेजा गया",
+  "connectionRestored": "कनेक्शन बहाल",
+  "hours": "{count} घंटे",
+  "@hours": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "navHome": "मुख्य",
+  "navProducts": "उत्पाद",
+  "navOrders": "आर्डर",
+  "navProfile": "प्रोफ़ाइल",
+  "totalSales": "कुल बिक्री",
+  "productsLive": "लाइव उत्पाद",
+  "giAuthenticated": "GI प्रमाणित",
+  "viewCraftPassport": "क्राफ्ट पासपोर्ट देखें",
+  "languageSettings": "भाषा सेटिंग्स",
+  "ondcNetworkStatus": "ONDC नेटवर्क स्थिति",
+  "helpVoiceSupport": "सहायता और वॉइस सपोर्ट",
+  "selectLanguage": "भाषा चुनें",
+  "defaultLanguage": "डिफ़ॉल्ट भाषा",
+  "regionalLanguages": "क्षेत्रीय भाषाएं"
+}

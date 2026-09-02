@@ -1,3 +1,5 @@
+import 'package:kalasetu_app/core/models/listing_status.dart';
+
 /// Product Listing Model for KalaSetu artisan catalog
 class ProductListing {
   final String id;
@@ -10,6 +12,7 @@ class ProductListing {
   final String description;
   final bool isGiCertified;
   final String artisanName;
+  final ListingStatus status;
   final DateTime createdAt;
 
   ProductListing({
@@ -23,6 +26,7 @@ class ProductListing {
     required this.description,
     this.isGiCertified = false,
     required this.artisanName,
+    this.status = ListingStatus.published,
     DateTime? createdAt,
   }) : createdAt = createdAt ?? DateTime.now();
 
@@ -37,6 +41,7 @@ class ProductListing {
         'description': description,
         'isGiCertified': isGiCertified,
         'artisanName': artisanName,
+        'status': status.name,
         'createdAt': createdAt.toIso8601String(),
       };
 
@@ -51,6 +56,10 @@ class ProductListing {
         description: json['description'] ?? '',
         isGiCertified: json['isGiCertified'] == true,
         artisanName: json['artisanName'] ?? 'KalaSetu Artisan',
+        status: ListingStatus.values.firstWhere(
+          (s) => s.name == json['status'],
+          orElse: () => ListingStatus.published,
+        ),
         createdAt: json['createdAt'] != null ? DateTime.tryParse(json['createdAt']) : null,
       );
 }

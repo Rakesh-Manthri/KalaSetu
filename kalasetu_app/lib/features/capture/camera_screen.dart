@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/constants/app_colors.dart';
-import '../../core/models/enhance_result.dart';
 import '../listing_preview/studio_preview_screen.dart';
 import 'capture_controller.dart';
 
@@ -201,7 +200,6 @@ class _CameraScreenState extends ConsumerState<CameraScreen> with SingleTickerPr
   /// Simulate blurry capture to test blur rejection feedback
   Future<void> _simulateBlurryCapture() async {
     // Test blurry error feedback directly
-    final controller = ref.read(captureControllerProvider.notifier);
     stateNotifierBlurrySim();
   }
 

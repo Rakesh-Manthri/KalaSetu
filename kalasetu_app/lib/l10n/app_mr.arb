@@ -1,0 +1,135 @@
+{
+  "@@locale": "mr",
+  "appName": "कला सेतू",
+  "homeGreeting": "स्वागत आहे, कारागीर!",
+  "namasteRamesh": "नमस्ते, रमेश",
+  "ondcSyncLive": "ONDC सिंक लाईव्ह",
+  "tapToCreateListing": "व्हॉइस आणि कॅमेरासह उत्पादन सूची तयार करण्यासाठी टॅप करा",
+  "startNow": "आता सुरू करा",
+  "liveOnOndc": "ONDC वर लाईव्ह",
+  "newOrdersCount": "नवीन ऑर्डर्स",
+  "recentActivity": "अलीकडील क्रियाकलाप",
+  "active": "सक्रिय",
+  "aiProcessing": "AI प्रक्रिया करत आहे...",
+  "newListing": "नवीन व्हॉइस आणि फोटो सूची",
+  "newListingSubtitle": "फोटो घ्या आणि आपल्या कलेचे वर्णन करा",
+  "myProducts": "माझी उत्पादने",
+  "myProductsCount": "{published} प्रकाशित · {drafts} ड्राफ्ट",
+  "@myProductsCount": {
+    "placeholders": {
+      "published": { "type": "int" },
+      "drafts": { "type": "int" }
+    }
+  },
+  "online": "ऑनलाइन",
+  "offline": "ऑफलाइन",
+  "lowBandwidth": "कमी बँडविड्थ",
+  "cameraStepTitle": "पायरी {current} / {total}",
+  "@cameraStepTitle": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "angleFront": "समोरून दृश्य",
+  "angleDetail": "तपशील / पोत",
+  "angleProgress": "काम प्रगतीपथावर",
+  "capture": "कॅप्चर करा",
+  "retake": "पुन्हा घ्या",
+  "delete": "हटवा",
+  "next": "पुढे",
+  "back": "मागे",
+  "voiceTitle": "आपल्या उत्पादनाविषयी आम्हाला सांगा",
+  "voicePrompt": "मायक्रोफोन टॅप करा आणि आपल्या भाषेत आपल्या कलेचे वर्णन करा",
+  "recording": "रेकॉर्डिंग...",
+  "tapToRecord": "रेकॉर्ड करण्यासाठी टॅप करा",
+  "play": "प्ले",
+  "pause": "थांबवा",
+  "reRecord": "पुन्हा रेकॉर्ड करा",
+  "suggestedTopics": "सुचविलेले विषय:",
+  "topicMaterial": "वापरलेले साहित्य",
+  "topicTime": "लागणारा वेळ",
+  "topicStory": "कलेमागील कथा",
+  "generateListing": "सूची तयार करा",
+  "previewTitle": "सूची पूर्वावलोकन",
+  "beforeImage": "पूर्वी",
+  "afterImage": "नंतर",
+  "description": "वर्णन",
+  "fairPrice": "योग्य किंमत",
+  "priceBreakdown": "किंमत तपशील",
+  "materials": "साहित्य",
+  "labor": "श्रम",
+  "fairMargin": "योग्य नफा",
+  "category": "श्रेणी",
+  "approveAndPush": "मंजूर करा आणि ONDC वर पाठवा",
+  "editDetails": "तपशील संपादित करा",
+  "processing": "आपल्या कलेवर प्रक्रिया होत आहे...",
+  "processingSubtitle": "आमचे AI आपले फोटो अधिक चांगले करत आहे",
+  "myListingsTitle": "माझी उत्पादने",
+  "filterAll": "सर्व उत्पादने",
+  "filterDraft": "ड्राफ्ट",
+  "filterPending": "प्रलंबित",
+  "filterPublished": "ONDC वर लाईव्ह",
+  "filterUnderReview": "पुनरावलोकनाधीन",
+  "statusDraft": "ड्राफ्ट",
+  "statusProcessing": "प्रक्रिया करत आहे",
+  "statusPending": "मंजुरी प्रलंबित",
+  "statusPublished": "लाईव्ह",
+  "stockUnits": "स्टॉक: {count} युनिट्स",
+  "@stockUnits": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ordersHub": "ऑर्डर हब",
+  "newOrdersTab": "नवीन ऑर्डर्स ({count})",
+  "@newOrdersTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "inTransitTab": "प्रवासात ({count})",
+  "@inTransitTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "completedTab": "पूर्ण",
+  "acceptOrder": "ऑर्डर स्वीकारा",
+  "packAndShip": "पॅक आणि शिप",
+  "craftPassportTitle": "डिजिटल क्राफ्ट पासपोर्ट",
+  "artisanName": "कारागीर",
+  "location": "ठिकाण",
+  "giTag": "GI टॅग",
+  "materialsUsed": "साहित्य",
+  "techniques": "तंत्र",
+  "scanQr": "सत्यता पडताळण्यासाठी स्कॅन करा",
+  "sharePassport": "पासपोर्ट शेअर करा",
+  "uploadSuccess": "सूची यशस्वीरित्या प्रकाशित झाली!",
+  "uploadFailed": "अपलोड अयशस्वी. पुन्हा प्रयत्न करण्यासाठी टॅप करा.",
+  "retry": "पुन्हा प्रयत्न करा",
+  "noListingsYet": "अद्याप कोणतीही सूची नाही",
+  "noListingsSubtitle": "फोटो घेऊन आपली पहिली सूची तयार करा",
+  "savedAsDraft": "ड्राफ्ट म्हणून सेव्ह केले",
+  "connectionRestored": "कनेक्शन पूर्ववत झाले",
+  "hours": "{count} तास",
+  "@hours": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "navHome": "मुख्य",
+  "navProducts": "उत्पादने",
+  "navOrders": "ऑर्डर्स",
+  "navProfile": "प्रोफाइल",
+  "totalSales": "एकूण विक्री",
+  "productsLive": "लाईव्ह उत्पादने",
+  "giAuthenticated": "GI प्रमाणित",
+  "viewCraftPassport": "क्राफ्ट पासपोर्ट पहा",
+  "languageSettings": "भाषा सेटिंग्ज",
+  "ondcNetworkStatus": "ONDC नेटवर्क स्थिती",
+  "helpVoiceSupport": "मदत आणि व्हॉइस सपोर्ट",
+  "selectLanguage": "भाषा निवडा",
+  "defaultLanguage": "डीफॉल्ट भाषा",
+  "regionalLanguages": "प्रादेशिक भाषा"
+}

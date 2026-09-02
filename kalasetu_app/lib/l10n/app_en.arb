@@ -1,0 +1,135 @@
+{
+  "@@locale": "en",
+  "appName": "KalaSetu",
+  "homeGreeting": "Welcome, Artisan!",
+  "namasteRamesh": "Namaste, Ramesh",
+  "ondcSyncLive": "ONDC Sync Live",
+  "tapToCreateListing": "Tap to Create Product Listing with Voice & Camera",
+  "startNow": "Start Now",
+  "liveOnOndc": "Live on ONDC",
+  "newOrdersCount": "New Orders",
+  "recentActivity": "Recent Activity",
+  "active": "Active",
+  "aiProcessing": "AI Processing...",
+  "newListing": "New Voice & Photo Listing",
+  "newListingSubtitle": "Take photos & describe your craft",
+  "myProducts": "My Products",
+  "myProductsCount": "{published} Published · {drafts} Drafts",
+  "@myProductsCount": {
+    "placeholders": {
+      "published": { "type": "int" },
+      "drafts": { "type": "int" }
+    }
+  },
+  "online": "Online",
+  "offline": "Offline",
+  "lowBandwidth": "Low Bandwidth",
+  "cameraStepTitle": "Step {current} of {total}",
+  "@cameraStepTitle": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "angleFront": "Front View",
+  "angleDetail": "Detail / Texture",
+  "angleProgress": "Craft in Progress",
+  "capture": "Capture",
+  "retake": "Retake",
+  "delete": "Delete",
+  "next": "Next",
+  "back": "Back",
+  "voiceTitle": "Tell us about your product",
+  "voicePrompt": "Tap the microphone and describe your craft in your language",
+  "recording": "Recording...",
+  "tapToRecord": "Tap to Record",
+  "play": "Play",
+  "pause": "Pause",
+  "reRecord": "Re-record",
+  "suggestedTopics": "Suggested topics:",
+  "topicMaterial": "Material used",
+  "topicTime": "Time to make",
+  "topicStory": "Story behind the craft",
+  "generateListing": "Generate Listing",
+  "previewTitle": "Listing Preview",
+  "beforeImage": "Before",
+  "afterImage": "After",
+  "description": "Description",
+  "fairPrice": "Fair Price",
+  "priceBreakdown": "Price Breakdown",
+  "materials": "Materials",
+  "labor": "Labor",
+  "fairMargin": "Fair Margin",
+  "category": "Category",
+  "approveAndPush": "Approve & Push to ONDC",
+  "editDetails": "Edit Details",
+  "processing": "Processing your craft...",
+  "processingSubtitle": "Our AI is enhancing your images and generating descriptions",
+  "myListingsTitle": "My Products",
+  "filterAll": "All Products",
+  "filterDraft": "Drafts",
+  "filterPending": "Pending",
+  "filterPublished": "Live on ONDC",
+  "filterUnderReview": "Under Review",
+  "statusDraft": "Draft",
+  "statusProcessing": "Processing",
+  "statusPending": "Pending Approval",
+  "statusPublished": "Live",
+  "stockUnits": "Stock: {count} units",
+  "@stockUnits": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ordersHub": "Orders Hub",
+  "newOrdersTab": "New Orders ({count})",
+  "@newOrdersTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "inTransitTab": "In Transit ({count})",
+  "@inTransitTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "completedTab": "Completed",
+  "acceptOrder": "Accept Order",
+  "packAndShip": "Pack & Ship",
+  "craftPassportTitle": "Digital Craft Passport",
+  "artisanName": "Artisan",
+  "location": "Location",
+  "giTag": "GI Tag",
+  "materialsUsed": "Materials",
+  "techniques": "Techniques",
+  "scanQr": "Scan to verify authenticity",
+  "sharePassport": "Share Passport",
+  "uploadSuccess": "Listing published successfully!",
+  "uploadFailed": "Upload failed. Tap to retry.",
+  "retry": "Retry",
+  "noListingsYet": "No listings yet",
+  "noListingsSubtitle": "Create your first listing by taking photos and recording a voice note",
+  "savedAsDraft": "Saved as draft",
+  "connectionRestored": "Connection restored",
+  "hours": "{count} hours",
+  "@hours": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "navHome": "Home",
+  "navProducts": "Products",
+  "navOrders": "Orders",
+  "navProfile": "Profile",
+  "totalSales": "Total Sales",
+  "productsLive": "Products Live",
+  "giAuthenticated": "GI Authenticated",
+  "viewCraftPassport": "View Craft Passport",
+  "languageSettings": "Language Settings",
+  "ondcNetworkStatus": "ONDC Network Status",
+  "helpVoiceSupport": "Help & Voice Support",
+  "selectLanguage": "Select Language",
+  "defaultLanguage": "Default Language",
+  "regionalLanguages": "Regional Languages"
+}

@@ -1,0 +1,135 @@
+{
+  "@@locale": "kn",
+  "appName": "ಕಲಾ ಸೇತು",
+  "homeGreeting": "ಸ್ವಾಗತ, ಕುಶಲಕರ್ಮಿ!",
+  "namasteRamesh": "ನಮಸ್ತೆ, ರಮೇಶ್",
+  "ondcSyncLive": "ONDC ಸಿಂಕ್ ಲೈವ್",
+  "tapToCreateListing": "ಧ್ವನಿ ಮತ್ತು ಕ್ಯಾಮೆರಾದೊಂದಿಗೆ ಉತ್ಪನ್ನ ಪಟ್ಟಿಯನ್ನು ರಚಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ",
+  "startNow": "ಈಗ ಪ್ರಾರಂಭಿಸಿ",
+  "liveOnOndc": "ONDC ನಲ್ಲಿ ಲೈವ್",
+  "newOrdersCount": "ಹೊಸ ಆದೇಶಗಳು",
+  "recentActivity": "ಇತ್ತೀಚಿನ ಚಟುವಟಿಕೆ",
+  "active": "ಸಕ್ರಿಯ",
+  "aiProcessing": "AI ಸಂಸ್ಕರಣೆ...",
+  "newListing": "ಹೊಸ ಧ್ವನಿ ಮತ್ತು ಫೋಟೋ ಪಟ್ಟಿ",
+  "newListingSubtitle": "ಫೋಟೋಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ ಮತ್ತು ನಿಮ್ಮ ಕಲೆಯನ್ನು ವಿವರಿಸಿ",
+  "myProducts": "ನನ್ನ ಉತ್ಪನ್ನಗಳು",
+  "myProductsCount": "{published} ಪ್ರಕಟಿತ · {drafts} ಕರಡುಗಳು",
+  "@myProductsCount": {
+    "placeholders": {
+      "published": { "type": "int" },
+      "drafts": { "type": "int" }
+    }
+  },
+  "online": "ಆನ್‌ಲೈನ್",
+  "offline": "ಆಫ್‌ಲೈನ್",
+  "lowBandwidth": "ಕಡಿಮೆ ಬ್ಯಾಂಡ್‌ವಿಡ್ತ್",
+  "cameraStepTitle": "ಹಂತ {current} / {total}",
+  "@cameraStepTitle": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "angleFront": "ಮುಂಭಾಗದ ನೋಟ",
+  "angleDetail": "ವಿವರ / ವಿನ್ಯಾಸ",
+  "angleProgress": "ಪ್ರಗತಿಯಲ್ಲಿರುವ ಕಲೆ",
+  "capture": "ಸೆರೆಹಿಡಿಯಿರಿ",
+  "retake": "ಮರುತೆಗೆದುಕೊಳ್ಳಿ",
+  "delete": "ಅಳಿಸಿ",
+  "next": "ಮುಂದೆ",
+  "back": "ಹಿಂದೆ",
+  "voiceTitle": "ನಿಮ್ಮ ಉತ್ಪನ್ನದ ಬಗ್ಗೆ ನಮಗೆ ತಿಳಿಸಿ",
+  "voicePrompt": "ಮೈಕ್ರೊಫೋನ್ ಟ್ಯಾಪ್ ಮಾಡಿ ಮತ್ತು ನಿಮ್ಮ ಕಲೆಯನ್ನು ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ವಿವರಿಸಿ",
+  "recording": "ರೆಕಾರ್ಡಿಂಗ್...",
+  "tapToRecord": "ರೆಕಾರ್ಡ್ ಮಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ",
+  "play": "ಪ್ಲೇ",
+  "pause": "ವಿರಾಮ",
+  "reRecord": "ಮರು-ರೆಕಾರ್ಡ್ ಮಾಡಿ",
+  "suggestedTopics": "ಸೂಚಿಸಿದ ವಿಷಯಗಳು:",
+  "topicMaterial": "ಬಳಸಿದ ವಸ್ತು",
+  "topicTime": "ಮಾಡಲು ಬೇಕಾದ ಸಮಯ",
+  "topicStory": "ಕಲೆಯ ಹಿಂದಿನ ಕಥೆ",
+  "generateListing": "ಪಟ್ಟಿಯನ್ನು ರಚಿಸಿ",
+  "previewTitle": "ಪಟ್ಟಿ ಮುನ್ನೋಟ",
+  "beforeImage": "ಮೊದಲು",
+  "afterImage": "ನಂತರ",
+  "description": "ವಿವರಣೆ",
+  "fairPrice": "ನ್ಯಾಯಯುತ ಬೆಲೆ",
+  "priceBreakdown": "ಬೆಲೆ ವಿಭಜನೆ",
+  "materials": "ವಸ್ತುಗಳು",
+  "labor": "ಶ್ರಮ",
+  "fairMargin": "ನ್ಯಾಯಯುತ ಮಾರ್ಜಿನ್",
+  "category": "ವರ್ಗ",
+  "approveAndPush": "ಅನುಮೋದಿಸಿ ಮತ್ತು ONDC ಗೆ ಕಳುಹಿಸಿ",
+  "editDetails": "ವಿವರಗಳನ್ನು ಸಂಪಾದಿಸಿ",
+  "processing": "ನಿಮ್ಮ ಕಲೆಯನ್ನು ಸಂಸ್ಕರಿಸಲಾಗುತ್ತಿದೆ...",
+  "processingSubtitle": "ನಮ್ಮ AI ನಿಮ್ಮ ಚಿತ್ರಗಳನ್ನು ಹೆಚ್ಚಿಸುತ್ತಿದೆ",
+  "myListingsTitle": "ನನ್ನ ಉತ್ಪನ್ನಗಳು",
+  "filterAll": "ಎಲ್ಲಾ ಉತ್ಪನ್ನಗಳು",
+  "filterDraft": "ಕರಡುಗಳು",
+  "filterPending": "ಬಾಕಿ ಉಳಿದಿದೆ",
+  "filterPublished": "ONDC ನಲ್ಲಿ ಲೈವ್",
+  "filterUnderReview": "ಪರಿಶೀಲನೆಯಲ್ಲಿದೆ",
+  "statusDraft": "ಕರಡು",
+  "statusProcessing": "ಸಂಸ್ಕರಿಸಲಾಗುತ್ತಿದೆ",
+  "statusPending": "ಅನುಮೋದನೆಗಾಗಿ ಬಾಕಿ ಉಳಿದಿದೆ",
+  "statusPublished": "ಲೈವ್",
+  "stockUnits": "ಸ್ಟಾಕ್: {count} ಘಟಕಗಳು",
+  "@stockUnits": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ordersHub": "ಆದೇಶಗಳ ಹಬ್",
+  "newOrdersTab": "ಹೊಸ ಆದೇಶಗಳು ({count})",
+  "@newOrdersTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "inTransitTab": "ಸಾಗಣೆಯಲ್ಲಿ ({count})",
+  "@inTransitTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "completedTab": "ಪೂರ್ಣಗೊಂಡಿದೆ",
+  "acceptOrder": "ಆದೇಶವನ್ನು ಸ್ವೀಕರಿಸಿ",
+  "packAndShip": "ಪ್ಯಾಕ್ ಮತ್ತು ಶಿಪ್",
+  "craftPassportTitle": "ಡಿಜಿಟಲ್ ಕ್ರಾಫ್ಟ್ ಪಾಸ್‌ಪೋರ್ಟ್",
+  "artisanName": "ಕುಶಲಕರ್ಮಿ",
+  "location": "ಸ್ಥಳ",
+  "giTag": "GI ಟ್ಯಾಗ್",
+  "materialsUsed": "ವಸ್ತುಗಳು",
+  "techniques": "ತಂತ್ರಗಳು",
+  "scanQr": "ದೃಢೀಕರಣವನ್ನು ಪರಿಶೀಲಿಸಲು ಸ್ಕ್ಯಾನ್ ಮಾಡಿ",
+  "sharePassport": "ಪಾಸ್‌ಪೋರ್ಟ್ ಹಂಚಿಕೊಳ್ಳಿ",
+  "uploadSuccess": "ಪಟ್ಟಿಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಪ್ರಕಟಿಸಲಾಗಿದೆ!",
+  "uploadFailed": "ಅಪ್‌ಲೋಡ್ ವಿಫಲವಾಗಿದೆ. ಮರುಪ್ರಯತ್ನಿಸಲು ಟ್ಯಾಪ್ ಮಾಡಿ.",
+  "retry": "ಮರುಪ್ರಯತ್ನಿಸಿ",
+  "noListingsYet": "ಇನ್ನೂ ಯಾವುದೇ ಪಟ್ಟಿಗಳಿಲ್ಲ",
+  "noListingsSubtitle": "ಫೋಟೋಗಳನ್ನು ತೆಗೆದುಕೊಂಡು ಮೊದಲ ಪಟ್ಟಿಯನ್ನು ರಚಿಸಿ",
+  "savedAsDraft": "ಕರಡು ಎಂದು ಉಳಿಸಲಾಗಿದೆ",
+  "connectionRestored": "ಸಂಪರ್ಕ ಮರುಸ್ಥಾಪಿಸಲಾಗಿದೆ",
+  "hours": "{count} ಗಂಟೆಗಳು",
+  "@hours": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "navHome": "ಮನೆ",
+  "navProducts": "ಉತ್ಪನ್ನಗಳು",
+  "navOrders": "ಆದೇಶಗಳು",
+  "navProfile": "ಪ್ರೊಫೈಲ್",
+  "totalSales": "ಒಟ್ಟು ಮಾರಾಟ",
+  "productsLive": "ಲೈವ್ ಉತ್ಪನ್ನಗಳು",
+  "giAuthenticated": "GI ದೃಢೀಕರಿಸಲಾಗಿದೆ",
+  "viewCraftPassport": "ಕ್ರಾಫ್ಟ್ ಪಾಸ್‌ಪೋರ್ಟ್ ವೀಕ್ಷಿಸಿ",
+  "languageSettings": "ಭಾಷಾ ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
+  "ondcNetworkStatus": "ONDC ನೆಟ್‌ವರ್ಕ್ ಸ್ಥಿತಿ",
+  "helpVoiceSupport": "ಸಹಾಯ ಮತ್ತು ಧ್ವನಿ ಬೆಂಬಲ",
+  "selectLanguage": "ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+  "defaultLanguage": "ಡೀಫಾಲ್ಟ್ ಭಾಷೆ",
+  "regionalLanguages": "ಪ್ರಾದೇಶಿಕ ಭಾಷೆಗಳು"
+}

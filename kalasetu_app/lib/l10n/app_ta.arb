@@ -1,0 +1,135 @@
+{
+  "@@locale": "ta",
+  "appName": "கலாசேது",
+  "homeGreeting": "வரவேற்கிறோம், கலைஞரே!",
+  "namasteRamesh": "நமஸ்தே, ரமேஷ்",
+  "ondcSyncLive": "ONDC ஒத்திசைவு நேரலை",
+  "tapToCreateListing": "குரல் & கேமரா மூலம் பொருளை பட்டியலிட தட்டவும்",
+  "startNow": "இப்போது தொடங்கு",
+  "liveOnOndc": "ONDC இல் நேரலை",
+  "newOrdersCount": "புதிய ஆர்டர்கள்",
+  "recentActivity": "சமீபத்திய செயல்பாடு",
+  "active": "செயலில்",
+  "aiProcessing": "AI செயலாக்கப்படுகிறது...",
+  "newListing": "புதிய குரல் & புகைப்பட பட்டியல்",
+  "newListingSubtitle": "புகைப்படங்கள் எடுத்து உங்கள் கலையை விவரிக்கவும்",
+  "myProducts": "எனது பொருட்கள்",
+  "myProductsCount": "{published} வெளியிட்டவை · {drafts} வரைவுகள்",
+  "@myProductsCount": {
+    "placeholders": {
+      "published": { "type": "int" },
+      "drafts": { "type": "int" }
+    }
+  },
+  "online": "ஆன்லைன்",
+  "offline": "ஆஃப்லைன்",
+  "lowBandwidth": "குறைந்த அலைவரிசை",
+  "cameraStepTitle": "படி {current} / {total}",
+  "@cameraStepTitle": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "angleFront": "முன்புற தோற்றம்",
+  "angleDetail": "விவரம் / அமைப்பு",
+  "angleProgress": "கலை உருவாக்கத்தில்",
+  "capture": "பிடி",
+  "retake": "மீண்டும் எடு",
+  "delete": "நீக்கு",
+  "next": "அடுத்து",
+  "back": "பின்னே",
+  "voiceTitle": "உங்கள் பொருளைப் பற்றி சொல்லுங்கள்",
+  "voicePrompt": "மைக்ரோஃபோனைத் தட்டி உங்கள் கலையை உங்கள் மொழியில் விவரிக்கவும்",
+  "recording": "பதிவாகிறது...",
+  "tapToRecord": "பதிவு செய்ய தட்டவும்",
+  "play": "இயக்கு",
+  "pause": "இடைநிறுத்து",
+  "reRecord": "மீண்டும் பதிவு செய்",
+  "suggestedTopics": "பரிந்துரைக்கப்பட்ட தலைப்புகள்:",
+  "topicMaterial": "பயன்படுத்தப்பட்ட பொருள்",
+  "topicTime": "செய்யும் நேரம்",
+  "topicStory": "கலைக்குப் பின்னால் உள்ள கதை",
+  "generateListing": "பட்டியலை உருவாக்கு",
+  "previewTitle": "பட்டியல் முன்னோட்டம்",
+  "beforeImage": "முன்",
+  "afterImage": "பின்",
+  "description": "விளக்கம்",
+  "fairPrice": "நியாயமான விலை",
+  "priceBreakdown": "விலை விவரம்",
+  "materials": "பொருட்கள்",
+  "labor": "உழைப்பு",
+  "fairMargin": "நியாயமான லாபம்",
+  "category": "வகை",
+  "approveAndPush": "ஒப்புதல் அளித்து ONDCக்கு அனுப்பு",
+  "editDetails": "விவரங்களை திருத்து",
+  "processing": "உங்கள் கலை செயலாக்கப்படுகிறது...",
+  "processingSubtitle": "எங்கள் AI உங்கள் படங்களை மேம்படுத்துகிறது",
+  "myListingsTitle": "எனது பொருட்கள்",
+  "filterAll": "அனைத்து பொருட்கள்",
+  "filterDraft": "வரைவுகள்",
+  "filterPending": "நிலுவையில் உள்ளது",
+  "filterPublished": "ONDC இல் நேரலை",
+  "filterUnderReview": "மதிப்பாய்வில்",
+  "statusDraft": "வரைவு",
+  "statusProcessing": "செயலாக்கப்படுகிறது",
+  "statusPending": "ஒப்புதலுக்கு நிலுவையில் உள்ளது",
+  "statusPublished": "நேரலை",
+  "stockUnits": "கையிருப்பு: {count} அலகுகள்",
+  "@stockUnits": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ordersHub": "ஆர்டர்கள் மையம்",
+  "newOrdersTab": "புதிய ஆர்டர்கள் ({count})",
+  "@newOrdersTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "inTransitTab": "பயணத்தில் ({count})",
+  "@inTransitTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "completedTab": "முடிந்தது",
+  "acceptOrder": "ஆர்டரை ஏற்றுக்கொள்",
+  "packAndShip": "பேக் செய்து அனுப்பு",
+  "craftPassportTitle": "டிஜிட்டல் கிராஃப்ட் பாஸ்போர்ட்",
+  "artisanName": "கலைஞர்",
+  "location": "இடம்",
+  "giTag": "GI டேக்",
+  "materialsUsed": "பொருட்கள்",
+  "techniques": "நுட்பங்கள்",
+  "scanQr": "உண்மையா என சரிபார்க்க ஸ்கேன் செய்யவும்",
+  "sharePassport": "பாஸ்போர்ட்டை பகிர்",
+  "uploadSuccess": "பட்டியல் வெற்றிகரமாக வெளியிடப்பட்டது!",
+  "uploadFailed": "பதிவேற்றம் தோல்வியடைந்தது. மீண்டும் முயற்சிக்க தட்டவும்.",
+  "retry": "மீண்டும் முயற்சி செய்",
+  "noListingsYet": "இன்னும் பட்டியல்கள் இல்லை",
+  "noListingsSubtitle": "புகைப்படங்கள் எடுத்து முதல் பட்டியலை உருவாக்கவும்",
+  "savedAsDraft": "வரைவாக சேமிக்கப்பட்டது",
+  "connectionRestored": "இணைப்பு மீட்கப்பட்டது",
+  "hours": "{count} மணிநேரம்",
+  "@hours": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "navHome": "முகப்பு",
+  "navProducts": "பொருட்கள்",
+  "navOrders": "ஆர்டர்கள்",
+  "navProfile": "சுயவிவரம்",
+  "totalSales": "மொத்த விற்பனை",
+  "productsLive": "நேரலை பொருட்கள்",
+  "giAuthenticated": "GI சான்றளிக்கப்பட்டது",
+  "viewCraftPassport": "கிராஃப்ட் பாஸ்போர்ட்டைக் காண்",
+  "languageSettings": "மொழி அமைப்புகள்",
+  "ondcNetworkStatus": "ONDC நெட்வொர்க் நிலை",
+  "helpVoiceSupport": "உதவி & குரல் ஆதரவு",
+  "selectLanguage": "மொழியைத் தேர்ந்தெடு",
+  "defaultLanguage": "இயல்பு மொழி",
+  "regionalLanguages": "பிராந்திய மொழிகள்"
+}

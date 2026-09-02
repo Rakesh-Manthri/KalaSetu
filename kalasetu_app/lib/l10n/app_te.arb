@@ -1,0 +1,135 @@
+{
+  "@@locale": "te",
+  "appName": "కళాసేతు",
+  "homeGreeting": "స్వాగతం, కళాకారుడా!",
+  "namasteRamesh": "నమస్తే, రమేష్",
+  "ondcSyncLive": "ONDC సింక్ లైవ్",
+  "tapToCreateListing": "వాయిస్ & కెమెరాతో ప్రోడక్ట్ లిస్టింగ్ క్రియేట్ చేయడానికి ట్యాప్ చేయండి",
+  "startNow": "ఇప్పుడే ప్రారంభించండి",
+  "liveOnOndc": "ONDC లో లైవ్",
+  "newOrdersCount": "కొత్త ఆర్డర్‌లు",
+  "recentActivity": "ఇటీవలి చర్యలు",
+  "active": "యాక్టివ్",
+  "aiProcessing": "AI ప్రాసెసింగ్...",
+  "newListing": "కొత్త వాయిస్ & ఫోటో లిస్టింగ్",
+  "newListingSubtitle": "ఫోటోలు తీసి మీ నైపుణ్యాన్ని వివరించండి",
+  "myProducts": "నా ఉత్పత్తులు",
+  "myProductsCount": "{published} ప్రచురించబడినవి · {drafts} డ్రాఫ్ట్‌లు",
+  "@myProductsCount": {
+    "placeholders": {
+      "published": { "type": "int" },
+      "drafts": { "type": "int" }
+    }
+  },
+  "online": "ఆన్‌లైన్",
+  "offline": "ఆఫ్‌లైన్",
+  "lowBandwidth": "తక్కువ బ్యాండ్‌విడ్త్",
+  "cameraStepTitle": "దశ {current} / {total}",
+  "@cameraStepTitle": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "angleFront": "ముందు వైపు",
+  "angleDetail": "వివరాలు / ఆకృతి",
+  "angleProgress": "తయారీలో ఉన్న పని",
+  "capture": "క్యాప్చర్",
+  "retake": "మళ్ళీ తీయండి",
+  "delete": "తొలగించండి",
+  "next": "తదుపరి",
+  "back": "వెనుకకు",
+  "voiceTitle": "మీ ఉత్పత్తి గురించి మాకు చెప్పండి",
+  "voicePrompt": "మైక్రోఫోన్‌ను ట్యాప్ చేసి, మీ నైపుణ్యాన్ని మీ భాషలో వివరించండి",
+  "recording": "రికార్డింగ్...",
+  "tapToRecord": "రికార్డ్ చేయడానికి ట్యాప్ చేయండి",
+  "play": "ప్లే",
+  "pause": "పాజ్",
+  "reRecord": "మళ్ళీ రికార్డ్ చేయండి",
+  "suggestedTopics": "సూచించిన అంశాలు:",
+  "topicMaterial": "ఉపయోగించిన మెటీరియల్",
+  "topicTime": "తయారీకి పట్టే సమయం",
+  "topicStory": "కళ వెనుక ఉన్న కథ",
+  "generateListing": "లిస్టింగ్‌ను రూపొందించండి",
+  "previewTitle": "లిస్టింగ్ ప్రివ్యూ",
+  "beforeImage": "ముందు",
+  "afterImage": "తర్వాత",
+  "description": "వివరణ",
+  "fairPrice": "న్యాయమైన ధర",
+  "priceBreakdown": "ధర వివరాలు",
+  "materials": "మెటీరియల్స్",
+  "labor": "శ్రమ",
+  "fairMargin": "న్యాయమైన మార్జిన్",
+  "category": "కేటగిరీ",
+  "approveAndPush": "ఆమోదించండి & ONDC కి పంపండి",
+  "editDetails": "వివరాలను సవరించండి",
+  "processing": "మీ కళ ప్రాసెస్ అవుతోంది...",
+  "processingSubtitle": "మా AI మీ చిత్రాలను మెరుగుపరుస్తోంది",
+  "myListingsTitle": "నా ఉత్పత్తులు",
+  "filterAll": "అన్ని ఉత్పత్తులు",
+  "filterDraft": "డ్రాఫ్ట్‌లు",
+  "filterPending": "పెండింగ్",
+  "filterPublished": "ONDC లో లైవ్",
+  "filterUnderReview": "సమీక్షలో ఉంది",
+  "statusDraft": "డ్రాఫ్ట్",
+  "statusProcessing": "ప్రాసెసింగ్",
+  "statusPending": "ఆమోదం కోసం పెండింగ్",
+  "statusPublished": "లైవ్",
+  "stockUnits": "స్టాక్: {count} యూనిట్లు",
+  "@stockUnits": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "ordersHub": "ఆర్డర్స్ హబ్",
+  "newOrdersTab": "కొత్త ఆర్డర్‌లు ({count})",
+  "@newOrdersTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "inTransitTab": "రవాణాలో ఉన్నాయి ({count})",
+  "@inTransitTab": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "completedTab": "పూర్తయినవి",
+  "acceptOrder": "ఆర్డర్ అంగీకరించండి",
+  "packAndShip": "ప్యాక్ & షిప్",
+  "craftPassportTitle": "డిజిటల్ క్రాఫ్ట్ పాస్‌పోర్ట్",
+  "artisanName": "కళాకారుడు",
+  "location": "స్థలం",
+  "giTag": "GI ట్యాగ్",
+  "materialsUsed": "మెటీరియల్స్",
+  "techniques": "పద్ధతులు",
+  "scanQr": "ప్రామాణికతను ధృవీకరించడానికి స్కాన్ చేయండి",
+  "sharePassport": "పాస్‌పోర్ట్ భాగస్వామ్యం చేయండి",
+  "uploadSuccess": "లిస్టింగ్ విజయవంతంగా ప్రచురించబడింది!",
+  "uploadFailed": "అప్‌లోడ్ విఫలమైంది. మళ్ళీ ప్రయత్నించడానికి ట్యాప్ చేయండి.",
+  "retry": "మళ్ళీ ప్రయత్నించండి",
+  "noListingsYet": "ఇంకా లిస్టింగ్స్ లేవు",
+  "noListingsSubtitle": "ఫోటోలు తీసి మీ మొదటి లిస్టింగ్‌ను సృష్టించండి",
+  "savedAsDraft": "డ్రాఫ్ట్‌గా సేవ్ చేయబడింది",
+  "connectionRestored": "కనెక్షన్ పునరుద్ధరించబడింది",
+  "hours": "{count} గంటలు",
+  "@hours": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "navHome": "హోమ్",
+  "navProducts": "ఉత్పత్తులు",
+  "navOrders": "ఆర్డర్‌లు",
+  "navProfile": "ప్రొఫైల్",
+  "totalSales": "మొత్తం విక్రయాలు",
+  "productsLive": "లైవ్ ఉత్పత్తులు",
+  "giAuthenticated": "GI ధృవీకరించబడింది",
+  "viewCraftPassport": "క్రాఫ్ట్ పాస్‌పోర్ట్ చూడండి",
+  "languageSettings": "భాష సెట్టింగ్‌లు",
+  "ondcNetworkStatus": "ONDC నెట్‌వర్క్ స్థితి",
+  "helpVoiceSupport": "సహాయం & వాయిస్ సపోర్ట్",
+  "selectLanguage": "భాషను ఎంచుకోండి",
+  "defaultLanguage": "డిఫాల్ట్ భాష",
+  "regionalLanguages": "ప్రాంతీయ భాషలు"
+}
