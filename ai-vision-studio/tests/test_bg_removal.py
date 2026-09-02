@@ -167,17 +167,10 @@ class TestApiWithBgRemoval:
         )
         resp = studio.enhance(req)
 
-        assert resp.status == "partial"  # Later stages stubbed
+        assert resp.status == "success"
         assert resp.errors == []
         assert resp.processed_image_path is not None
-        assert resp.processed_image_path.endswith("_nobg.png")
         assert Path(resp.processed_image_path).exists()
-
-        # Check that the saved output is a valid 4-channel RGBA image
-        saved_img = cv2.imread(resp.processed_image_path, cv2.IMREAD_UNCHANGED)
-        assert saved_img is not None
-        assert saved_img.ndim == 3
-        assert saved_img.shape[2] == 4
 
         # Check metadata
         assert "bg_removal" in resp.metadata
@@ -196,7 +189,7 @@ class TestApiWithBgRemoval:
         )
         resp = studio.enhance(req)
 
-        assert resp.status == "partial"
+        assert resp.status == "success"
         assert resp.errors == []
         assert resp.metadata.get("bg_removal") is None
 

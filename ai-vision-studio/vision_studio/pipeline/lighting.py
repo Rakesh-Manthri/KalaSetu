@@ -16,6 +16,8 @@ MAX_GAMMA = 2.0
 TARGET_LUMINANCE = 128.0
 CLAHE_CLIP_LIMIT = 2.0
 CLAHE_TILE_GRID_SIZE = (8, 8)
+# White balance blend factor: 0.30 applies gentle ambient cast correction while preserving authentic artisan craft hues
+WB_CORRECTION_STRENGTH = 0.30
 
 
 @dataclass
@@ -43,6 +45,7 @@ def correct_lighting(
     image_bgr: np.ndarray,
     mask: np.ndarray | None = None,
     cfg: Any = None,
+    raw_image_bgr: np.ndarray | None = None,
 ) -> LightingResult:
     """Apply classical computer vision lighting, white balance, and contrast corrections.
 
@@ -50,7 +53,7 @@ def correct_lighting(
     If mask is None or contains no foreground pixels, falls back to correcting the entire image.
 
     Pipeline:
-        1. White balance via Gray-World assumption on foreground pixels.
+        1. Gentle white balance via Gray-World assumption on masked foreground with chromaticity preservation.
         2. Auto-gamma adjustment based on masked mean luminance toward target mid-gray.
         3. CLAHE on LAB L-channel to lift shadow details and improve local contrast.
         4. Masked blend to guarantee background pixels (mask == 0) remain bitwise unchanged.
@@ -59,6 +62,7 @@ def correct_lighting(
         image_bgr: Input BGR image (uint8, shape HxWx3).
         mask: Optional single-channel alpha mask (uint8, shape HxW, values 0-255).
         cfg: Optional configuration dictionary or object.
+        raw_image_bgr: Optional raw unsegmented input image.
 
     Returns:
         LightingResult containing corrected BGR image and execution metadata.
@@ -100,9 +104,14 @@ def correct_lighting(
     else:
         raw_gain_b = raw_gain_g = raw_gain_r = 1.0
 
-    gain_b = float(np.clip(raw_gain_b, MIN_GAIN, MAX_GAIN))
-    gain_g = float(np.clip(raw_gain_g, MIN_GAIN, MAX_GAIN))
-    gain_r = float(np.clip(raw_gain_r, MIN_GAIN, MAX_GAIN))
+    raw_gain_b = float(np.clip(raw_gain_b, MIN_GAIN, MAX_GAIN))
+    raw_gain_g = float(np.clip(raw_gain_g, MIN_GAIN, MAX_GAIN))
+    raw_gain_r = float(np.clip(raw_gain_r, MIN_GAIN, MAX_GAIN))
+
+    # Apply gentle white balance correction strength to preserve inherent craft colors
+    gain_b = float(1.0 + (raw_gain_b - 1.0) * WB_CORRECTION_STRENGTH)
+    gain_g = float(1.0 + (raw_gain_g - 1.0) * WB_CORRECTION_STRENGTH)
+    gain_r = float(1.0 + (raw_gain_r - 1.0) * WB_CORRECTION_STRENGTH)
 
     # Apply WB gains across the image
     wb_img = image_bgr.astype(np.float32)
@@ -127,7 +136,7 @@ def correct_lighting(
     )
     gamma_img = cv2.LUT(wb_img, gamma_lut)
 
-    # 3. CLAHE on LAB L-channel
+    # 3. CLAHE on LAB L-channel (preserves chromaticity in A & B channels)
     lab_img = cv2.cvtColor(gamma_img, cv2.COLOR_BGR2LAB)
     l_chan, a_chan, b_chan = cv2.split(lab_img)
 

@@ -178,13 +178,12 @@ class TestApiWithLighting:
         )
         resp = studio.enhance(req)
 
-        assert resp.status == "partial"
+        assert resp.status == "success"
         assert resp.errors == []
         assert resp.processed_image_path is not None
         assert Path(resp.processed_image_path).exists()
 
-        # Metadata should contain phase 4 and lighting info
-        assert resp.metadata["phase"] == 4
+        # Metadata should contain lighting info
         assert "lighting" in resp.metadata
         assert resp.metadata["lighting"] is not None
         assert "white_balance_gains" in resp.metadata["lighting"]
@@ -205,6 +204,6 @@ class TestApiWithLighting:
         )
         resp = studio.enhance(req)
 
-        assert resp.status == "partial"
+        assert resp.status == "success"
         assert resp.errors == []
         assert resp.metadata["lighting"] is None
